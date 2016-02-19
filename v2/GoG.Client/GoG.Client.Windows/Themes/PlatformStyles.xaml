@@ -1,0 +1,258 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:GoG.Client.Controls"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:viewModels="using:GoG.Client.ViewModels"
+                    xmlns:views="using:GoG.Client.Views"
+                    mc:Ignorable="d">
+
+    <Style x:Key="NavigationButtonIconStyle"
+           TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontFamily" Value="ms-appx:///GoG.Resources/Fonts/fontawesome-webfont.ttf#FontAwesome" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Margin" Value="10,7,0,7" />
+    </Style>
+    <Style x:Key="NavigationButtonTextStyle"
+           TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="10,7,15,7" />
+    </Style>
+
+    <SolidColorBrush x:Key="NavBackgroundBrush"
+                     Color="{StaticResource NavBackgroundColor}" />
+
+    <Style TargetType="controls:NavigationButton">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NavigationButton">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Border to show hover and selection.  -->
+                        <Border x:Name="Border"
+                                Grid.ColumnSpan="2"
+                                Background="{TemplateBinding Background}" />
+                        <TextBlock x:Name="TextBlock"
+                                   Grid.Column="0"
+                                   Style="{StaticResource NavigationButtonIconStyle}"
+                                   Text="{TemplateBinding Icon}" />
+                        <TextBlock x:Name="TextBlock2"
+                                   Grid.Column="1"
+                                   Style="{StaticResource NavigationButtonTextStyle}"
+                                   Text="{TemplateBinding Text}" />
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavBackgroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock2"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Hover">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavHoverBackgroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavHoverForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock2"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavHoverForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0"
+                                                        Storyboard.TargetName="Border"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="{StaticResource NavPressedBackgroundColor}" />
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavPressedForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock2"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavPressedForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavDisabledBackgroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavDisabledBackgroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavDisabledForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock2"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavDisabledForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavSelectedBackgroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavSelectedForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock2"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{StaticResource NavSelectedForegroundColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--
+        Master Page - Used as the root of pages to provide a standard look.  Set the Body to your content.
+        
+        Note: This control template binds directly against members of PageViewModelBase, which would normally
+        be an anti-pattern in a custom control.  However, since this control is already tightly bound to
+        GoG (and is not a UserControl for mere technical reasons), I think it's OK to cut corners in this
+        case. -Chris Bordeman
+    -->
+    <Style TargetType="controls:MasterPage">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:MasterPage">
+                    <Grid d:DataContext="{d:DesignInstance viewModels:PageViewModelBase, d:IsDesignTimeCreatable=False}">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/Assets/game.jpg"
+                                        Opacity="0.5"
+                                        Stretch="UniformToFill" />
+                        </Grid.Background>
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition />
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <views:NavigationUserControl Grid.Row="1"
+                                                     Margin="0,10,0,0"
+                                                     Visibility="{TemplateBinding NavigationVisibility}" />
+
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Margin="40,50,5,40"
+                                    Orientation="Horizontal">
+                            <Button Margin="0,0,30,0"
+                                    VerticalAlignment="Top"
+                                    AutomationProperties.AutomationId="BackButton"
+                                    AutomationProperties.ItemType="Navigation Button"
+                                    AutomationProperties.Name="Back"
+                                    Command="{Binding GoBackCommand}"
+                                    Style="{StaticResource NavigationBackButtonNormalStyle}" />
+                            <TextBlock VerticalAlignment="Top"
+                                       IsHitTestVisible="false"
+                                       Style="{StaticResource HeaderTextBlockStyle}"
+                                       Text="{Binding Title,
+                                                      FallbackValue='The Game of Go'}"
+                                       TextWrapping="NoWrap" />
+                        </StackPanel>
+
+                        <views:CurrentUserUserControl Grid.Row="0"
+                                                      Grid.Column="2"
+                                                      Margin="0,50,30,10"
+                                                      HorizontalAlignment="Right"
+                                                      VerticalAlignment="Top"
+                                                      DataContext="{Binding CurrentUser}"
+                                                      Visibility="{TemplateBinding SignInVisibility}" />
+
+                        <ContentPresenter Grid.Row="1"
+                                          Grid.Column="1"
+                                          Grid.ColumnSpan="2"
+                                          Margin="30,0,0,0"
+                                          Content="{TemplateBinding Body}" />
+
+                        <ProgressBar Grid.Row="0"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2"
+                                     VerticalAlignment="Top"
+                                     IsIndeterminate="True"
+                                     Visibility="{Binding IsBusy,
+                                                          Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

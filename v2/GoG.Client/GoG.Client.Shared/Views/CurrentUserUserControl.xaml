@@ -1,0 +1,36 @@
+﻿<views:UserControlBase x:Class="GoG.Client.Views.CurrentUserUserControl"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:extensions="using:WinRTXamlToolkit.Controls.Extensions"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:viewModels="using:GoG.Client.ViewModels"
+                       xmlns:views="using:GoG.Client.Views"
+                       d:DataContext="{d:DesignInstance viewModels:CurrentUserUserControlViewModel,
+                                                        d:IsDesignTimeCreatable=True}"
+                       d:DesignHeight="70"
+                       mc:Ignorable="d">
+
+    <StackPanel Orientation="Horizontal">
+        <Image Width="50"
+               Height="50"
+               Source="{Binding Gravatar}" />
+        <StackPanel MaxWidth="100"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Bottom">
+            <TextBlock FontSize="20"
+                       Foreground="White"
+                       Text="{Binding UserId}" />
+            <HyperlinkButton Command="{Binding SignOutCommand}"
+                             Content="Sign Out"
+                             FontSize="16"
+                             extensions:FrameworkElementExtensions.SystemCursor="Hand">
+                <HyperlinkButton.Template>
+                    <ControlTemplate>
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </HyperlinkButton.Template>
+            </HyperlinkButton>
+        </StackPanel>
+    </StackPanel>
+</views:UserControlBase>

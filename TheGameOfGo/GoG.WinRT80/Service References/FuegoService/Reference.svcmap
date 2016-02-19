@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6f124103-4073-43ae-8fd2-a481983ddafe" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/GoG.Services/Fuego.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Fuego.xsd" MetadataType="Schema" ID="96dfa20b-9833-414e-a3fe-e5688e429db7" SourceId="1" SourceUrl="http://localhost/GoG.Services/Fuego.svc?xsd=xsd0" />
+    <MetadataFile FileName="Fuego1.xsd" MetadataType="Schema" ID="39fce72c-c768-4c59-baed-1b126d2003f3" SourceId="1" SourceUrl="http://localhost/GoG.Services/Fuego.svc?xsd=xsd3" />
+    <MetadataFile FileName="Fuego2.xsd" MetadataType="Schema" ID="60c5a77b-9fbb-4892-bb8f-d6c907a3ee8e" SourceId="1" SourceUrl="http://localhost/GoG.Services/Fuego.svc?xsd=xsd2" />
+    <MetadataFile FileName="Fuego.disco" MetadataType="Disco" ID="6c8d0057-3750-4f91-aa23-da55359e2ab6" SourceId="1" SourceUrl="http://localhost/GoG.Services/Fuego.svc?disco" />
+    <MetadataFile FileName="Fuego.wsdl" MetadataType="Wsdl" ID="0a4bd4f0-dcc9-4081-9c71-5669fa2d40d1" SourceId="1" SourceUrl="http://localhost/GoG.Services/Fuego.svc?wsdl" />
+    <MetadataFile FileName="Fuego3.xsd" MetadataType="Schema" ID="b40ece7d-8910-4dac-a956-ecf7f6878022" SourceId="1" SourceUrl="http://localhost/GoG.Services/Fuego.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

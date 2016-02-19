@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c347840b-d21f-4f76-8443-a5b7b9feaadb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/GoG.Services/Messenger.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Messenger.xsd" MetadataType="Schema" ID="96fffed1-bf86-4e38-91e2-005cc26d521a" SourceId="1" SourceUrl="http://localhost/GoG.Services/Messenger.svc?xsd=xsd0" />
+    <MetadataFile FileName="Messenger.disco" MetadataType="Disco" ID="83db9f4b-585d-4efb-b309-9442e37af752" SourceId="1" SourceUrl="http://localhost/GoG.Services/Messenger.svc?disco" />
+    <MetadataFile FileName="Messenger1.xsd" MetadataType="Schema" ID="af26583b-9e32-42fb-8d77-2f0ed9861842" SourceId="1" SourceUrl="http://localhost/GoG.Services/Messenger.svc?xsd=xsd1" />
+    <MetadataFile FileName="Messenger.wsdl" MetadataType="Wsdl" ID="3df2dc27-3190-4be3-ae96-fa05fc57e0d6" SourceId="1" SourceUrl="http://localhost/GoG.Services/Messenger.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

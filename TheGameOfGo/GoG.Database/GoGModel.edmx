@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GoGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="BlacksTurn" Type="bit" Nullable="false" />
+          <Property Name="BlackStones" Type="varchar" MaxLength="1400" Nullable="false" />
+          <Property Name="WhiteStones" Type="varchar" MaxLength="1400" Nullable="false" />
+          <Property Name="LastMove" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Started" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Size" Type="tinyint" Nullable="false" />
+          <Property Name="Player1Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Player2Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Player1Type" Type="tinyint" Nullable="false" />
+          <Property Name="Player2Type" Type="tinyint" Nullable="false" />
+          <Property Name="Player1Score" Type="decimal" Precision="11" Scale="6" Nullable="false" />
+          <Property Name="Player2Score" Type="decimal" Precision="11" Scale="6" Nullable="false" />
+          <Property Name="Player1Level" Type="tinyint" Nullable="false" />
+          <Property Name="Player2Level" Type="tinyint" Nullable="false" />
+          <Property Name="WinMargin" Type="decimal" Precision="11" Scale="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameId" Type="uniqueidentifier" />
+          <Property Name="Date" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Level" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="Context" Type="varchar(max)" />
+          <Property Name="ExceptionType" Type="varchar" MaxLength="50" />
+          <Property Name="Exception" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Moves">
+          <Key>
+            <PropertyRef Name="MoveId" />
+          </Key>
+          <Property Name="MoveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="3" />
+          <Property Name="Captured" Type="varchar" MaxLength="1294" Nullable="false" />
+          <Property Name="IsBlack" Type="bit" Nullable="false" />
+          <Property Name="MoveType" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Name="SettingId" Type="int" Nullable="false" />
+          <Property Name="ActiveMessage" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_Moves_Games">
+          <End Role="Games" Type="Self.Games" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Moves" Type="Self.Moves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="Moves">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GoGModelStoreContainer">
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Moves" EntityType="Self.Moves" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_Moves_Games" Association="Self.FK_Moves_Games">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="Moves" EntitySet="Moves" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GoGModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GoGEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="GoGModel.Game" />
+          <EntitySet Name="Logs" EntityType="GoGModel.Log" />
+          <EntitySet Name="Moves" EntityType="GoGModel.Move" />
+          <AssociationSet Name="FK_Moves_Games1" Association="GoGModel.FK_Moves_Games1">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="Move1" EntitySet="Moves" />
+          </AssociationSet>
+          <EntitySet Name="Settings" EntityType="GoGModel.Setting" />
+        </EntityContainer>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="GameId" Type="Guid" Nullable="false" />
+          <Property Name="BlacksTurn" Type="Boolean" Nullable="false" />
+          <Property Name="BlackStones" Type="String" Nullable="false" MaxLength="1400" Unicode="false" FixedLength="false" />
+          <Property Name="WhiteStones" Type="String" Nullable="false" MaxLength="1400" Unicode="false" FixedLength="false" />
+          <Property Name="Started" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Size" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Moves" Relationship="GoGModel.FK_Moves_Games1" FromRole="Game" ToRole="Move1" />
+          <Property Type="Byte" Name="Status" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="LastMove" Nullable="false" Precision="7" />
+          <Property Type="String" Name="Player1Name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Player2Name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="Player1Type" Nullable="false" />
+          <Property Type="Byte" Name="Player2Type" Nullable="false" />
+          <Property Type="Decimal" Name="Player1Score" Nullable="false" Precision="11" Scale="6" />
+          <Property Type="Decimal" Name="Player2Score" Nullable="false" Precision="11" Scale="6" />
+          <Property Type="Byte" Name="Player1Level" Nullable="false" />
+          <Property Type="Byte" Name="Player2Level" Nullable="false" />
+          <Property Type="Decimal" Name="WinMargin" Nullable="false" Precision="11" Scale="6" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Type="Int32" Name="LogId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTimeOffset" Name="Date" Nullable="false" Precision="7" />
+          <Property Type="String" Name="Level" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Context" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ExceptionType" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Exception" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="GameId" />
+        </EntityType>
+        <EntityType Name="Move">
+          <Key>
+            <PropertyRef Name="MoveId" />
+          </Key>
+          <Property Type="Int32" Name="MoveId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="GameId" Nullable="false" />
+          <Property Type="Int32" Name="Sequence" Nullable="false" />
+          <Property Type="String" Name="Position" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Captured" Nullable="false" MaxLength="1294" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsBlack" Nullable="false" />
+          <Property Type="Byte" Name="MoveType" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="GoGModel.FK_Moves_Games1" FromRole="Move1" ToRole="Game" />
+        </EntityType>
+        <Association Name="FK_Moves_Games1">
+          <End Type="GoGModel.Game" Role="Game" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoGModel.Move" Role="Move1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="GameId" />
+            </Principal>
+            <Dependent Role="Move1">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Type="Int32" Name="SettingId" Nullable="false" />
+          <Property Type="String" Name="ActiveMessage" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GoGModelStoreContainer" CdmEntityContainer="GoGEntities">
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="GoGModel.Game">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="WinMargin" ColumnName="WinMargin" />
+                <ScalarProperty Name="Player2Level" ColumnName="Player2Level" />
+                <ScalarProperty Name="Player1Level" ColumnName="Player1Level" />
+                <ScalarProperty Name="Player2Score" ColumnName="Player2Score" />
+                <ScalarProperty Name="Player1Score" ColumnName="Player1Score" />
+                <ScalarProperty Name="Player2Type" ColumnName="Player2Type" />
+                <ScalarProperty Name="Player1Type" ColumnName="Player1Type" />
+                <ScalarProperty Name="Player2Name" ColumnName="Player2Name" />
+                <ScalarProperty Name="Player1Name" ColumnName="Player1Name" />
+                <ScalarProperty Name="LastMove" ColumnName="LastMove" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="BlacksTurn" ColumnName="BlacksTurn" />
+                <ScalarProperty Name="BlackStones" ColumnName="BlackStones" />
+                <ScalarProperty Name="WhiteStones" ColumnName="WhiteStones" />
+                <ScalarProperty Name="Started" ColumnName="Started" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="GoGModel.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Moves">
+            <EntityTypeMapping TypeName="GoGModel.Move">
+              <MappingFragment StoreEntitySet="Moves">
+                <ScalarProperty Name="MoveType" ColumnName="MoveType" />
+                <ScalarProperty Name="IsBlack" ColumnName="IsBlack" />
+                <ScalarProperty Name="Captured" ColumnName="Captured" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="MoveId" ColumnName="MoveId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="GoGModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="ActiveMessage" ColumnName="ActiveMessage" />
+                <ScalarProperty Name="SettingId" ColumnName="SettingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

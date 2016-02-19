@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0ff7bd5d696c46428377e8d7f1c59880" Name="Diagram1" ZoomLevel="89" DisplayType="true">
+        <EntityTypeShape EntityType="GoGModel.Game" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoGModel.Log" Width="1.5" PointX="3.75" PointY="0.625" />
+        <EntityTypeShape EntityType="GoGModel.Move" Width="2" PointX="3.75" PointY="3.125" />
+        <AssociationConnector Association="GoGModel.FK_Moves_Games1" />
+        <EntityTypeShape EntityType="GoGModel.Setting" Width="1.5" PointX="6.375" PointY="0.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

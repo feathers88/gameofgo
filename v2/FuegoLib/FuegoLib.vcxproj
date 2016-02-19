@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6E57091B-B73E-46B7-8BE1-6139DB5735A5}</ProjectGuid>
+    <RootNamespace>FuegoLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>C:\local\boost_1_54_0;C:\src\GameOfGo\TheGameOfGo\FuegoLib\smartgame;C:\src\GameOfGo\TheGameOfGo\FuegoLib\gtpengine;C:\src\GameOfGo\TheGameOfGo\FuegoLib\gouct;C:\src\GameOfGo\TheGameOfGo\FuegoLib\go;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;BOOST_NO_CXX11_NULLPTR;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\local\boost_1_54_0\lib64-msvc-11.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ForceFileOutput>
+      </ForceFileOutput>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\local\boost_1_54_0\lib64-msvc-11.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="FuegoInterop.cpp" />
+    <ClCompile Include="gouct\GoUctAdditiveKnowledge.cpp" />
+    <ClCompile Include="gouct\GoUctAdditiveKnowledgeFuego.cpp" />
+    <ClCompile Include="gouct\GoUctAdditiveKnowledgeGreenpeep.cpp" />
+    <ClCompile Include="gouct\GoUctBoard.cpp" />
+    <ClCompile Include="gouct\GoUctCommands.cpp" />
+    <ClCompile Include="gouct\GoUctDefaultMoveFilter.cpp" />
+    <ClCompile Include="gouct\GoUctDefaultPriorKnowledge.cpp" />
+    <ClCompile Include="gouct\GoUctEstimatorStat.cpp" />
+    <ClCompile Include="gouct\GoUctGlobalSearch.cpp" />
+    <ClCompile Include="gouct\GoUctKnowledge.cpp" />
+    <ClCompile Include="gouct\GoUctKnowledgeFactory.cpp" />
+    <ClCompile Include="gouct\GoUctLadderKnowledge.cpp" />
+    <ClCompile Include="gouct\GoUctMoveFilter.cpp" />
+    <ClCompile Include="gouct\GoUctObjectWithSearch.cpp" />
+    <ClCompile Include="gouct\GoUctPlayoutPolicy.cpp" />
+    <ClCompile Include="gouct\GoUctSearch.cpp" />
+    <ClCompile Include="gouct\GoUctUtil.cpp" />
+    <ClCompile Include="go\GoAutoBook.cpp" />
+    <ClCompile Include="go\GoBensonSolver.cpp" />
+    <ClCompile Include="go\GoBlock.cpp" />
+    <ClCompile Include="go\GoBoard.cpp" />
+    <ClCompile Include="go\GoBoardCheckPerformance.cpp" />
+    <ClCompile Include="go\GoBoardHistory.cpp" />
+    <ClCompile Include="go\GoBoardRestorer.cpp" />
+    <ClCompile Include="go\GoBoardSynchronizer.cpp" />
+    <ClCompile Include="go\GoBoardUpdater.cpp" />
+    <ClCompile Include="go\GoBoardUtil.cpp" />
+    <ClCompile Include="go\GoBook.cpp" />
+    <ClCompile Include="go\GoChain.cpp" />
+    <ClCompile Include="go\GoEyeCount.cpp" />
+    <ClCompile Include="go\GoEyeUtil.cpp" />
+    <ClCompile Include="go\GoGame.cpp" />
+    <ClCompile Include="go\GoGtpCommandUtil.cpp" />
+    <ClCompile Include="go\GoGtpEngine.cpp" />
+    <ClCompile Include="go\GoGtpExtraCommands.cpp" />
+    <ClCompile Include="go\GoInfluence.cpp" />
+    <ClCompile Include="go\GoInit.cpp" />
+    <ClCompile Include="go\GoKomi.cpp" />
+    <ClCompile Include="go\GoLadder.cpp" />
+    <ClCompile Include="go\GoMotive.cpp" />
+    <ClCompile Include="go\GoNodeUtil.cpp" />
+    <ClCompile Include="go\GoPlayer.cpp" />
+    <ClCompile Include="go\GoPlayerMove.cpp" />
+    <ClCompile Include="go\GoRegion.cpp" />
+    <ClCompile Include="go\GoRegionBoard.cpp" />
+    <ClCompile Include="go\GoRegionUtil.cpp" />
+    <ClCompile Include="go\GoRules.cpp" />
+    <ClCompile Include="go\GoSafetyCommands.cpp" />
+    <ClCompile Include="go\GoSafetySolver.cpp" />
+    <ClCompile Include="go\GoSafetyUtil.cpp" />
+    <ClCompile Include="go\GoSearch.cpp" />
+    <ClCompile Include="go\GoSetupUtil.cpp" />
+    <ClCompile Include="go\GoStaticLadder.cpp" />
+    <ClCompile Include="go\GoStaticSafetySolver.cpp" />
+    <ClCompile Include="go\GoTimeControl.cpp" />
+    <ClCompile Include="go\GoTimeSettings.cpp" />
+    <ClCompile Include="go\GoUtil.cpp" />
+    <ClCompile Include="gtpengine\GtpEngine.cpp" />
+    <ClCompile Include="gtpengine\GtpInputStream.cpp" />
+    <ClCompile Include="gtpengine\GtpOutputStream.cpp" />
+    <ClCompile Include="smartgame\SgBoardConst.cpp" />
+    <ClCompile Include="smartgame\SgBookBuilder.cpp" />
+    <ClCompile Include="smartgame\SgCmdLineOpt.cpp" />
+    <ClCompile Include="smartgame\SgConnCompIterator.cpp" />
+    <ClCompile Include="smartgame\SgDebug.cpp" />
+    <ClCompile Include="smartgame\SgDfpnSearch.cpp" />
+    <ClCompile Include="smartgame\SgEvaluatedMoves.cpp" />
+    <ClCompile Include="smartgame\SgException.cpp" />
+    <ClCompile Include="smartgame\SgFastLog.cpp" />
+    <ClCompile Include="smartgame\SgGameReader.cpp" />
+    <ClCompile Include="smartgame\SgGameWriter.cpp" />
+    <ClCompile Include="smartgame\SgGtpClient.cpp" />
+    <ClCompile Include="smartgame\SgGtpCommands.cpp" />
+    <ClCompile Include="smartgame\SgGtpUtil.cpp" />
+    <ClCompile Include="smartgame\SgIncrementalStack.cpp" />
+    <ClCompile Include="smartgame\SgInit.cpp" />
+    <ClCompile Include="smartgame\SgMemCheck.cpp" />
+    <ClCompile Include="smartgame\SgMiaiMap.cpp" />
+    <ClCompile Include="smartgame\SgMiaiStrategy.cpp" />
+    <ClCompile Include="smartgame\SgMpiSynchronizer.cpp" />
+    <ClCompile Include="smartgame\SgNbIterator.cpp" />
+    <ClCompile Include="smartgame\SgNode.cpp" />
+    <ClCompile Include="smartgame\SgNodeUtil.cpp" />
+    <ClCompile Include="smartgame\SgPlatform.cpp" />
+    <ClCompile Include="smartgame\SgPoint.cpp" />
+    <ClCompile Include="smartgame\SgPointSet.cpp" />
+    <ClCompile Include="smartgame\SgPointSetUtil.cpp" />
+    <ClCompile Include="smartgame\SgProbCut.cpp" />
+    <ClCompile Include="smartgame\SgProcess.cpp" />
+    <ClCompile Include="smartgame\SgProp.cpp" />
+    <ClCompile Include="smartgame\SgRandom.cpp" />
+    <ClCompile Include="smartgame\SgRect.cpp" />
+    <ClCompile Include="smartgame\SgSearch.cpp" />
+    <ClCompile Include="smartgame\SgSearchControl.cpp" />
+    <ClCompile Include="smartgame\SgSearchStatistics.cpp" />
+    <ClCompile Include="smartgame\SgSearchTracer.cpp" />
+    <ClCompile Include="smartgame\SgSearchValue.cpp" />
+    <ClCompile Include="smartgame\SgStrategy.cpp" />
+    <ClCompile Include="smartgame\SgStringUtil.cpp" />
+    <ClCompile Include="smartgame\SgSystem.cpp" />
+    <ClCompile Include="smartgame\SgTime.cpp" />
+    <ClCompile Include="smartgame\SgTimeControl.cpp" />
+    <ClCompile Include="smartgame\SgTimeRecord.cpp" />
+    <ClCompile Include="smartgame\SgUctSearch.cpp" />
+    <ClCompile Include="smartgame\SgUctTree.cpp" />
+    <ClCompile Include="smartgame\SgUctTreeUtil.cpp" />
+    <ClCompile Include="smartgame\SgUtil.cpp" />
+    <ClCompile Include="smartgame\SgVectorUtil.cpp" />
+    <ClCompile Include="smartgame\SgWrite.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gouct\GoUctAdditiveKnowledge.h" />
+    <ClInclude Include="gouct\GoUctAdditiveKnowledgeFuego.h" />
+    <ClInclude Include="gouct\GoUctAdditiveKnowledgeGreenpeep.h" />
+    <ClInclude Include="gouct\GoUctBoard.h" />
+    <ClInclude Include="gouct\GoUctBookBuilder.h" />
+    <ClInclude Include="gouct\GoUctBookBuilderCommands.h" />
+    <ClInclude Include="gouct\GoUctCommands.h" />
+    <ClInclude Include="gouct\GoUctDefaultMoveFilter.h" />
+    <ClInclude Include="gouct\GoUctDefaultPriorKnowledge.h" />
+    <ClInclude Include="gouct\GoUctEstimatorStat.h" />
+    <ClInclude Include="gouct\GoUctGammaMoveGenerator.h" />
+    <ClInclude Include="gouct\GoUctGlobalPatternData.h" />
+    <ClInclude Include="gouct\GoUctGlobalSearch.h" />
+    <ClInclude Include="gouct\GoUctGreenpeepPatterns19.h" />
+    <ClInclude Include="gouct\GoUctGreenpeepPatterns9.h" />
+    <ClInclude Include="gouct\GoUctKnowledge.h" />
+    <ClInclude Include="gouct\GoUctKnowledgeFactory.h" />
+    <ClInclude Include="gouct\GoUctLadderKnowledge.h" />
+    <ClInclude Include="gouct\GoUctLocalPatternData.h" />
+    <ClInclude Include="gouct\GoUctMoveFilter.h" />
+    <ClInclude Include="gouct\GoUctObjectWithSearch.h" />
+    <ClInclude Include="gouct\GoUctPatternData.h" />
+    <ClInclude Include="gouct\GoUctPatterns.h" />
+    <ClInclude Include="gouct\GoUctPlayer.h" />
+    <ClInclude Include="gouct\GoUctPlayoutPolicy.h" />
+    <ClInclude Include="gouct\GoUctPureRandomGenerator.h" />
+    <ClInclude Include="gouct\GoUctSearch.h" />
+    <ClInclude Include="gouct\GoUctUtil.h" />
+    <ClInclude Include="go\GoAssertBoardRestored.h" />
+    <ClInclude Include="go\GoAutoBook.h" />
+    <ClInclude Include="go\GoBensonSolver.h" />
+    <ClInclude Include="go\GoBlock.h" />
+    <ClInclude Include="go\GoBoard.h" />
+    <ClInclude Include="go\GoBoardCheckPerformance.h" />
+    <ClInclude Include="go\GoBoardHistory.h" />
+    <ClInclude Include="go\GoBoardRestorer.h" />
+    <ClInclude Include="go\GoBoardSynchronizer.h" />
+    <ClInclude Include="go\GoBoardUpdater.h" />
+    <ClInclude Include="go\GoBoardUtil.h" />
+    <ClInclude Include="go\GoBook.h" />
+    <ClInclude Include="go\GoChain.h" />
+    <ClInclude Include="go\GoEyeCount.h" />
+    <ClInclude Include="go\GoEyeUtil.h" />
+    <ClInclude Include="go\GoGame.h" />
+    <ClInclude Include="go\GoGtpCommandUtil.h" />
+    <ClInclude Include="go\GoGtpEngine.h" />
+    <ClInclude Include="go\GoGtpExtraCommands.h" />
+    <ClInclude Include="go\GoInfluence.h" />
+    <ClInclude Include="go\GoInit.h" />
+    <ClInclude Include="go\GoKomi.h" />
+    <ClInclude Include="go\GoLadder.h" />
+    <ClInclude Include="go\GoModBoard.h" />
+    <ClInclude Include="go\GoMotive.h" />
+    <ClInclude Include="go\GoMoveExecutor.h" />
+    <ClInclude Include="go\GoNodeUtil.h" />
+    <ClInclude Include="go\GoPlayer.h" />
+    <ClInclude Include="go\GoPlayerMove.h" />
+    <ClInclude Include="go\GoRegion.h" />
+    <ClInclude Include="go\GoRegionBoard.h" />
+    <ClInclude Include="go\GoRegionUtil.h" />
+    <ClInclude Include="go\GoRules.h" />
+    <ClInclude Include="go\GoSafetyCommands.h" />
+    <ClInclude Include="go\GoSafetySolver.h" />
+    <ClInclude Include="go\GoSafetyUtil.h" />
+    <ClInclude Include="go\GoSearch.h" />
+    <ClInclude Include="go\GoSetup.h" />
+    <ClInclude Include="go\GoSetupUtil.h" />
+    <ClInclude Include="go\GoSortedMoves.h" />
+    <ClInclude Include="go\GoStaticLadder.h" />
+    <ClInclude Include="go\GoStaticSafetySolver.h" />
+    <ClInclude Include="go\GoTimeControl.h" />
+    <ClInclude Include="go\GoTimeSettings.h" />
+    <ClInclude Include="go\GoUtil.h" />
+    <ClInclude Include="gtpengine\GtpEngine.h" />
+    <ClInclude Include="gtpengine\GtpInputStream.h" />
+    <ClInclude Include="gtpengine\GtpOutputStream.h" />
+    <ClInclude Include="smartgame\SgAdditiveKnowledge.h" />
+    <ClInclude Include="smartgame\SgArray.h" />
+    <ClInclude Include="smartgame\SgArrayList.h" />
+    <ClInclude Include="smartgame\SgBlackWhite.h" />
+    <ClInclude Include="smartgame\SgBoardColor.h" />
+    <ClInclude Include="smartgame\SgBoardConst.h" />
+    <ClInclude Include="smartgame\SgBookBuilder.h" />
+    <ClInclude Include="smartgame\SgBWArray.h" />
+    <ClInclude Include="smartgame\SgBWSet.h" />
+    <ClInclude Include="smartgame\SgCmdLineOpt.h" />
+    <ClInclude Include="smartgame\SgConnCompIterator.h" />
+    <ClInclude Include="smartgame\SgDebug.h" />
+    <ClInclude Include="smartgame\SgDfpnSearch.h" />
+    <ClInclude Include="smartgame\SgEBWArray.h" />
+    <ClInclude Include="smartgame\SgEvaluatedMoves.h" />
+    <ClInclude Include="smartgame\SgException.h" />
+    <ClInclude Include="smartgame\SgFastLog.h" />
+    <ClInclude Include="smartgame\SgGameReader.h" />
+    <ClInclude Include="smartgame\SgGameWriter.h" />
+    <ClInclude Include="smartgame\SgGtpClient.h" />
+    <ClInclude Include="smartgame\SgGtpCommands.h" />
+    <ClInclude Include="smartgame\SgGtpUtil.h" />
+    <ClInclude Include="smartgame\SgHash.h" />
+    <ClInclude Include="smartgame\SgHashTable.h" />
+    <ClInclude Include="smartgame\SgIncrementalStack.h" />
+    <ClInclude Include="smartgame\SgInit.h" />
+    <ClInclude Include="smartgame\SgMarker.h" />
+    <ClInclude Include="smartgame\SgMath.h" />
+    <ClInclude Include="smartgame\SgMemCheck.h" />
+    <ClInclude Include="smartgame\SgMiaiMap.h" />
+    <ClInclude Include="smartgame\SgMiaiStrategy.h" />
+    <ClInclude Include="smartgame\SgMove.h" />
+    <ClInclude Include="smartgame\SgMpiSynchronizer.h" />
+    <ClInclude Include="smartgame\SgNbIterator.h" />
+    <ClInclude Include="smartgame\SgNode.h" />
+    <ClInclude Include="smartgame\SgNodeUtil.h" />
+    <ClInclude Include="smartgame\SgPlatform.h" />
+    <ClInclude Include="smartgame\SgPoint.h" />
+    <ClInclude Include="smartgame\SgPointArray.h" />
+    <ClInclude Include="smartgame\SgPointIterator.h" />
+    <ClInclude Include="smartgame\SgPointSet.h" />
+    <ClInclude Include="smartgame\SgPointSetUtil.h" />
+    <ClInclude Include="smartgame\SgProbCut.h" />
+    <ClInclude Include="smartgame\SgProcess.h" />
+    <ClInclude Include="smartgame\SgProp.h" />
+    <ClInclude Include="smartgame\SgRandom.h" />
+    <ClInclude Include="smartgame\SgRect.h" />
+    <ClInclude Include="smartgame\SgRestorer.h" />
+    <ClInclude Include="smartgame\SgSearch.h" />
+    <ClInclude Include="smartgame\SgSearchControl.h" />
+    <ClInclude Include="smartgame\SgSearchStatistics.h" />
+    <ClInclude Include="smartgame\SgSearchTracer.h" />
+    <ClInclude Include="smartgame\SgSearchValue.h" />
+    <ClInclude Include="smartgame\SgSortedArray.h" />
+    <ClInclude Include="smartgame\SgSortedMoves.h" />
+    <ClInclude Include="smartgame\SgStack.h" />
+    <ClInclude Include="smartgame\SgStatistics.h" />
+    <ClInclude Include="smartgame\SgStatisticsVlt.h" />
+    <ClInclude Include="smartgame\SgStrategy.h" />
+    <ClInclude Include="smartgame\SgStringUtil.h" />
+    <ClInclude Include="smartgame\SgSystem.h" />
+    <ClInclude Include="smartgame\SgThreadedWorker.h" />
+    <ClInclude Include="smartgame\SgTime.h" />
+    <ClInclude Include="smartgame\SgTimeControl.h" />
+    <ClInclude Include="smartgame\SgTimer.h" />
+    <ClInclude Include="smartgame\SgTimeRecord.h" />
+    <ClInclude Include="smartgame\SgUctSearch.h" />
+    <ClInclude Include="smartgame\SgUctTree.h" />
+    <ClInclude Include="smartgame\SgUctTreeUtil.h" />
+    <ClInclude Include="smartgame\SgUctValue.h" />
+    <ClInclude Include="smartgame\SgUtil.h" />
+    <ClInclude Include="smartgame\SgVector.h" />
+    <ClInclude Include="smartgame\SgVectorUtil.h" />
+    <ClInclude Include="smartgame\SgWrite.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="book.dat">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

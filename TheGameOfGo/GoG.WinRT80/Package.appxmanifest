@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="53013ChrisBordeman.TheGameofGo" Publisher="CN=CE39242E-0F00-4A15-BC91-FA48F5E341F6" Version="1.0.0.2" />
+  <Properties>
+    <DisplayName>The Game of Go</DisplayName>
+    <PublisherDisplayName>Chris Bordeman</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="GoG.WinRT80.App">
+      <VisualElements DisplayName="The Game of Go" Logo="Assets\Square150x150Logo.jpg" SmallLogo="Assets\Square30x30Logo.png" Description="According to chess master Emanuel Lasker: &quot;The rules of Go are so elegant, organic, and rigorously logical that if intelligent life forms exist elsewhere in the universe, they almost certainly play Go.&quot;  Go is an ancient Chinese/Japanese board game.  Players alternate placing black and white stones, with the goal to surround and capture their opponent's pieces and territory.  Unlike chess, the number of potential moves is so great that even modern computers cannot beat most professional human players." ForegroundText="light" BackgroundColor="#000000">
+        <DefaultTile ShowName="allLogos" ShortName="The Game of Go" WideLogo="Assets\Wide310x150Logo.jpg" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
+        <InitialRotationPreference>
+          <Rotation Preference="portrait" />
+          <Rotation Preference="landscape" />
+          <Rotation Preference="portraitFlipped" />
+          <Rotation Preference="landscapeFlipped" />
+        </InitialRotationPreference>
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

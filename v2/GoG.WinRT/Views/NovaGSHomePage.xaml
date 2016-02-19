@@ -1,0 +1,339 @@
+﻿<storeApps:VisualStateAwarePage x:Class="GoG.WinRT.Views.NovaGSHomePage"
+                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                           xmlns:engine="using:GoG.Infrastructure.Engine"
+                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                           xmlns:sys="using:System"
+                           xmlns:viewModels2="using:GoG.WinRT.ViewModels"
+                           xmlns:winRt="using:GoG.WinRT"
+                           xmlns:storeApps="using:Microsoft.Practices.Prism.StoreApps"
+                           xmlns:behaviors="using:AdventureWorks.Shopper.Behaviors"
+                           xmlns:board="using:GoG.Board"
+                           x:Name="pageRoot"
+                           d:DataContext="{d:DesignInstance viewModels2:NovaGSHomePageViewModel}"
+                           storeApps:ViewModelLocator.AutoWireViewModel="True"
+                           mc:Ignorable="d">
+    <!--d:DataContext="{d:DesignInstance viewModels2:SinglePlayerPageViewModel}"-->
+
+    <Page.Resources>
+        <winRt:GoColorToColorConverter x:Key="GoColorToColorConverter" />
+        <winRt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <Storyboard x:Name="BouncePlayer1Storyboard">
+            <DoubleAnimation From="0" To="-6" Duration="00:00:0.4" 
+                             RepeatBehavior="Forever"
+                             AutoReverse="True"
+                             Storyboard.TargetName="TopEllipse" 
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseOut" 
+                                 />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="BouncePlayer2Storyboard">
+            <DoubleAnimation From="0" To="-6" Duration="00:00:0.4" 
+                             RepeatBehavior="Forever"
+                             AutoReverse="True"
+                             Storyboard.TargetName="BottomEllipse" 
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseOut" 
+                                 />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+    </Page.Resources>
+
+    <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <ImageBrush AlignmentX="Left"
+                        AlignmentY="Top"
+                        ImageSource="/Assets/game.jpg"
+                        Opacity=".4"
+                        Stretch="UniformToFill" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="320" x:Name="LeftColumn"/>
+            <ColumnDefinition Width="20" x:Name="PadColumn" />
+            <ColumnDefinition Width="*" x:Name="RightColumn" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" x:Name="TopRow" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" x:Name="BottomRow" />
+        </Grid.RowDefinitions>
+
+        <!--  Back button and page title  -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton"
+                    Command="{Binding GoBackCommand}"
+                    Style="{StaticResource SnappedBackButtonStyle}"
+                    Margin="20,10,0,0"/>
+            <!--<TextBlock x:Name="pageTitle"
+                       Grid.Column="1"
+                       Style="{StaticResource PageHeaderTextStyle}"
+                       Text="{Binding ConnectionState}" />-->
+            
+        </Grid>
+
+        <!--Big board on right-->
+        <ScrollViewer x:Name="BigBoardScrollViewer"
+                      HorizontalAlignment="Stretch" 
+                      HorizontalScrollBarVisibility="Hidden" 
+                      VerticalScrollBarVisibility="Hidden"
+                      VerticalAlignment="Stretch" 
+                      MinZoomFactor="0.5" 
+                      Grid.RowSpan="4"
+                      Grid.Column="2">
+
+            <board:GameBoard x:Name="BigBoard"
+                             Margin="0,0"
+                             BoardEdgeSize="{Binding BoardEdgeSize}"
+                             Pieces="{Binding Pieces}"
+                             PressedCommand="{Binding PressedCommand}"
+                             Width="1"
+                             Height="1"
+                             MessageText="{Binding MessageText}"
+                             IsBusy="{Binding IsBusy}"/>
+        </ScrollViewer>
+
+        <!--Small board at bottom left-->
+        <ScrollViewer x:Name="SmallBoardScrollViewer"
+                      HorizontalScrollBarVisibility="Hidden" 
+                      VerticalScrollBarVisibility="Hidden"
+                      MinZoomFactor="0.5" 
+                      Grid.Row="4"
+                      Grid.ColumnSpan="2"
+                      VerticalAlignment="Stretch">
+
+            <board:GameBoard x:Name="SmallBoard"
+                             ShowHeaders="False"
+                             BoardEdgeSize="{Binding BoardEdgeSize}"
+                             Pieces="{Binding Pieces}"
+                             PressedCommand="{Binding PressedCommand}" 
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Top"
+                             Width="1"
+                             Height="1"
+                             MessageText="{Binding MessageText}"
+                             IsBusy="{Binding IsBusy}"/>
+        </ScrollViewer>
+        <!--<TextBlock Margin="0,10,10,0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   FontSize="20"
+                   Foreground="White"
+                   Text="{Binding CurrentPointerPosition,
+                                  ElementName=MyGameBoard}" />-->
+
+        <Grid Grid.Row="1" 
+              Margin="20,0,0,0"
+              x:Name="LeftGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock Margin="0,0,10,0"
+                       Style="{StaticResource BasicTextStyle}"
+                       VerticalAlignment="Center"
+                       FontSize="26"
+                       Text="{Binding Player1.Name}"
+                       TextWrapping="NoWrap" />
+            <Ellipse Grid.Column="1"
+                     x:Name="TopEllipse"
+                     Width="40"
+                     Height="40"
+                     Margin="10,0,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Center">
+                <Ellipse.Fill>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0.25" Color="#FF4D4D4D" />
+                        <GradientStop Offset="0.993" Color="#171717" />
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <TextBlock Grid.Column="2"
+                       Style="{StaticResource BasicTextStyle}"
+                       Margin="20,0,0,0"
+                       VerticalAlignment="Center"
+                       FontSize="36"
+                       Text="{Binding Player1.Prisoners}" />
+
+            <TextBlock Grid.Row="1"
+                       Style="{StaticResource BasicTextStyle}"
+                       Margin="0,10,10,0"
+                       VerticalAlignment="Center"
+                       FontSize="26"
+                       Text="{Binding Player2.Name}"
+                       TextWrapping="NoWrap"/>
+            <Ellipse Grid.Row="1"
+                     Grid.Column="1"
+                     x:Name="BottomEllipse"
+                     Width="40"
+                     Height="40"
+                     Margin="10,10,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Center">
+                <Ellipse.Fill>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0.25" Color="White" />
+                        <GradientStop Offset="0.993" Color="#888888" />
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <TextBlock Grid.Row="1"
+                       Grid.Column="2"
+                       Style="{StaticResource BasicTextStyle}"
+                       Margin="20,10,0,0"
+                       VerticalAlignment="Center"
+                       FontSize="36"
+                       Text="{Binding Player2.Prisoners}" />
+
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button 
+                        Command="{Binding GetHintCommand}"
+                        Content="Hint" 
+                        IsTabStop="False"
+                        Width="70"/>
+                    <Button 
+                        Command="{Binding UndoCommand}"
+                        Content="Undo" 
+                        Margin="3,0,0,0"
+                        IsTabStop="False"
+                        Width="70"/>
+                </StackPanel>
+
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    Grid.Column="1"
+                    HorizontalAlignment="Right">
+                    <Button
+                        Command="{Binding PassCommand}"
+                        Content="Pass" 
+                        IsTabStop="False"
+                        Width="70"/>
+
+                    <Button
+                        Command="{Binding ResignCommand}"
+                        Content="Resign" 
+                        IsTabStop="False"
+                        Margin="3,0,0,0"
+                        Width="80"/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+            <!--Displays move history-->
+            <!--<GridView Grid.Row="3"
+                      Grid.ColumnSpan="3"
+                      Margin="0,10,0,0"
+                      ItemsSource="{Binding History}"
+                      
+                      BorderThickness="0"
+                      SelectionMode="Single"
+                      >
+                
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <local:HistoryItemUserControl HorizontalAlignment="Left"/>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>-->
+
+
+            <!--
+                <TextBox Grid.Row="2"
+                Grid.ColumnSpan="3"
+                MaxHeight="120"
+                Margin="0,40,0,10"
+                BorderThickness="0"
+                Foreground="Black"
+                Padding="5,6"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                Text="Good game!"
+                TextWrapping="Wrap" />
+                <ListView Grid.Row="3"
+                Grid.ColumnSpan="3"
+                Width="300"
+                Margin="0,20,0,5"
+                Background="Transparent"
+                Foreground="WhiteSmoke" />
+            -->
+        </Grid>
+
+        <Border Grid.Row="1"
+                Grid.RowSpan="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Visibility="{Binding IsBusy,
+                                     Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <ProgressRing Width="40"
+                              Height="40"
+                              HorizontalAlignment="Center"
+                              Foreground="White"
+                              IsActive="{Binding IsBusy}" />
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="26"
+                           FontWeight="Normal"
+                           Text="{Binding BusyMessage}" />
+            </StackPanel>
+        </Border>
+
+        
+    </Grid>
+    <Page.BottomAppBar>
+        <AppBar IsSticky="False" Style="{StaticResource AppBarStyle}">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource SaveAppBarButtonStyle}" AutomationProperties.Name="Save SGF" Command="{Binding SaveCommand}" />
+                    <Button Style="{StaticResource OpenFileAppBarButtonStyle}" AutomationProperties.Name="Load SGF" Command="{Binding LoadCommand}" />
+                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource RefreshAppBarButtonStyle}" />
+                    <Button Style="{StaticResource SettingsAppBarButtonStyle}" />
+                </StackPanel>-->
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
+</storeApps:VisualStateAwarePage>
