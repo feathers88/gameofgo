@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" IgnorableNamespaces="uap mp">
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.10586.0" MaxVersionTested="10.0.10586.0" />
+  </Dependencies>
+  <Identity Name="88a0620b-56cd-4f6d-bbe7-5e7747d0a803" Publisher="CN=Chris" Version="1.2.0.0" />
+  <mp:PhoneIdentity PhoneProductId="88a0620b-56cd-4f6d-bbe7-5e7747d0a803" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>The Game of Go</DisplayName>
+    <PublisherDisplayName>Chris Bordeman</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="GoG.WinRT.App">
+      <uap:VisualElements DisplayName="The Game of Go" Description="According to chess master Emanuel Lasker: &quot;The rules of Go are so elegant, organic, and rigorously logical that if intelligent life forms exist elsewhere in the universe, they almost certainly play Go.&quot;  Go is an ancient Chinese/Japanese board game.  Players alternate placing black and white stones, with the goal to surround and capture their opponent's pieces and territory.  Unlike chess, the number of potential moves is so great that even modern computers cannot beat most professional human players." BackgroundColor="#000000" Square150x150Logo="Assets\Square150x150Logo.jpg" Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait" />
+          <uap:Rotation Preference="landscape" />
+          <uap:Rotation Preference="portraitFlipped" />
+          <uap:Rotation Preference="landscapeFlipped" />
+        </uap:InitialRotationPreference>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+</Package>
