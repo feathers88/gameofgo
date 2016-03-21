@@ -1,36 +1,36 @@
 ﻿#pragma managed
 
-#include "pch.h"
 #include "FuegoUniversalComponent.h"
 
-#include <stdio.h>
-
-#pragma unmanaged
-
-#include "FuegoLib/FuegoLib.h"
-
-#pragma managed
-
 using namespace std;
-
 using namespace Platform;
 
 namespace FuegoUniversalComponent
 {
-	void FuegoUniversalComponent::StartGame(const int boardSize)
+	void FuegoUniversalComponent::Init()
 	{
-		
-		//std::cerr << "boardSize: " << boardSize << ".";
+		SgInit();
+		GoInit();
+	}
+
+	void FuegoUniversalComponent::StartGame(const int boardSize)
+	{		
+		if (_e != 0)
+		{
+			delete _e;
+			_e = 0;
+		}
 
 		try
 		{
-			Init();
-			LibStartGame(boardSize);
+			_e = new ::GoGtpEngine(boardSize, 0, false, true);
 		}
-		catch (const std::exception& e)
+		catch (const std::exception& ex)
 		{
 			throw;
 		}
+
+		//_e->CmdSetup(GtpCommand());	
 	}
 }
 
