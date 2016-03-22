@@ -1,4 +1,4 @@
-﻿using GoG.Infrastructure.Engine;
+﻿using FuegoLib;
 using System;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.StoreApps;
@@ -7,7 +7,7 @@ namespace GoG.WinRT.ViewModels
 {
     public class PlayerViewModel : ViewModel
     {
-        public PlayerViewModel(GoPlayer p, GoColor color)
+        public PlayerViewModel(GoPlayer2 p, GoColor color)
         {
             _color = color;
             _name = p.Name;
@@ -53,9 +53,9 @@ namespace GoG.WinRT.ViewModels
             set { SetProperty(ref _color, value); }
         }
 
-        private decimal _score = 0;
+        private double _score = 0;
         [Obsolete("Score is showed through prisoners")]
-        public decimal Score
+        public double Score
         {
             get { return _score; }
             set { SetProperty(ref _score, value); }

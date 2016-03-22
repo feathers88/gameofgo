@@ -471,7 +471,7 @@ namespace GoG.WinRT.Common
         class VectorChangedEventArgs : IVectorChangedEventArgs
         {
             readonly CollectionChange _cc = CollectionChange.Reset;
-            readonly uint _index = (uint)0xffff;
+            readonly uint _index = 0xffff;
 
             static readonly VectorChangedEventArgs _reset = new VectorChangedEventArgs(CollectionChange.Reset);
             public static VectorChangedEventArgs Reset

@@ -1,4 +1,4 @@
-﻿//using GoG.Infrastructure.Engine;
+﻿//
 //using Microsoft.Practices.Prism.Mvvm;
 //using Microsoft.Practices.Prism.StoreApps;
 

@@ -43,7 +43,7 @@ namespace GoG.WinRT.Common
         /// </summary>
         public object Helper
         {
-            get { return (object)GetValue(HelperProperty); }
+            get { return GetValue(HelperProperty); }
             set { SetValue(HelperProperty, value); }
         }
 

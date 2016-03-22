@@ -2,10 +2,11 @@
 using System.Diagnostics;
 using System;
 using System.Globalization;
+using GoG.Infrastructure;
 using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml.Media.Animation;
-using GoG.Infrastructure;
+using FuegoLib;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Text;
@@ -16,7 +17,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 using GoG.Board.Extensions;
 using System.Text;
-using GoG.Infrastructure.Engine;
 
 namespace GoG.Board
 {

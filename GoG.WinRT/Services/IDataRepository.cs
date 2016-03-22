@@ -1,8 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using GoG.Infrastructure.Engine;
-using GoG.Infrastructure.Services.Engine;
+using FuegoLib;
+
 
 namespace GoG.WinRT.Services
 {
@@ -16,19 +16,6 @@ namespace GoG.WinRT.Services
         Task<GoHintResponse> HintAsync(Guid gameid, GoColor color);
         Task<GoMoveResponse> GenMoveAsync(Guid gameid, GoColor color);
         Task<GoGameStateResponse> UndoAsync(Guid gameid);
-        Task<GoSaveSVGResponse> SaveSGF(Guid gameid);
-        Task<GoResponse> LoadSGF(Guid gameid, string sgf);
-
         #endregion Fuego
-
-        #region Chat
-
-        //void SendMessage(string message);
-
-        #endregion Chat
-
-        #region Messenger
-        Task<string> GetActiveMessage();
-        #endregion Messenger
     }
 }

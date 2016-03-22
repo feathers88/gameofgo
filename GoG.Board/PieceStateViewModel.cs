@@ -1,5 +1,5 @@
 ﻿using System;
-using GoG.Infrastructure.Engine;
+using FuegoLib;
 using Microsoft.Practices.Prism.Mvvm;
 
 namespace GoG.Board

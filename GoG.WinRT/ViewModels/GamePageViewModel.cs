@@ -1,12 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using GoG.Infrastructure;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using GoG.Board;
-using GoG.Infrastructure;
-using GoG.Infrastructure.Engine;
-using GoG.Infrastructure.Services.Engine;
+using FuegoLib;
+
+
 using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Unity;
 using System;
@@ -18,7 +19,7 @@ using Microsoft.Practices.Prism.Mvvm;
 
 namespace GoG.WinRT.ViewModels
 {
-    [System.Runtime.InteropServices.GuidAttribute("1E724C54-5390-4AEA-AD0D-E46A527243B3")]
+    [System.Runtime.InteropServices.Guid("1E724C54-5390-4AEA-AD0D-E46A527243B3")]
     public class GamePageViewModel : PageViewModel
     {
         #region Ctor
@@ -181,113 +182,6 @@ namespace GoG.WinRT.ViewModels
 
         #region Commands
         
-        #region SaveCommand
-        DelegateCommand _saveCommand;
-        public DelegateCommand SaveCommand
-        {
-            get { if (_saveCommand == null) _saveCommand = new DelegateCommand(ExecuteSave, CanSave); return _saveCommand; }
-        }
-        public bool CanSave()
-        {
-            return this.ActiveGame != Guid.Empty || !IsBusy;
-        }
-        public async void ExecuteSave()
-        {
-            var fileSavePicker = new FileSavePicker();
-            fileSavePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            fileSavePicker.FileTypeChoices.Add("Smart Game Format", new [] { ".sgf" });
-            fileSavePicker.DefaultFileExtension = ".sgf";
-            //fileSavePicker.SuggestedFileName = ;
-            fileSavePicker.SettingsIdentifier = "sgf";
-            fileSavePicker.CommitButtonText = "Save SGF";
-
-            var file = await fileSavePicker.PickSaveFileAsync();
-
-            if (file != null)
-            {
-                MessageText = "Saving...";
-                IsBusy = true;
-                var resp = await DataRepository.SaveSGF(ActiveGame);
-                IsBusy = false;
-                MessageText = null;
-
-                if (AbortOperation)
-                    return;
-
-                if (resp.ResultCode == GoResultCode.Success)
-                {
-                    try
-                    {
-                        await FileIO.WriteTextAsync(file, resp.SVGText);
-                        InvokeFleetingMessage("SGF Saved.", 1000);
-                    }
-                    catch (Exception ex)
-                    {
-                        DisplayMessage("Whoops", "Couldn't save the SGF.\n\nError was: " + ex.Message);
-                    }
-                }
-                else 
-                    await DisplayErrorCode(resp.ResultCode);
-            }
-        }
-        #endregion SaveCommand
-
-        
-        #region LoadCommand
-        DelegateCommand _loadCommand;
-        public DelegateCommand LoadCommand
-        {
-            get { if (_loadCommand == null) _loadCommand = new DelegateCommand(ExecuteLoad, CanLoad); return _loadCommand; }
-        }
-        public bool CanLoad()
-        {
-            return true;
-        }
-        public async void ExecuteLoad()
-        {
-            try
-            {
-                var fileLoadPicker = new FileOpenPicker();
-                fileLoadPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                fileLoadPicker.ViewMode = PickerViewMode.List;
-                fileLoadPicker.FileTypeFilter.Add(".sgf");
-                fileLoadPicker.SettingsIdentifier = "sgf";
-                fileLoadPicker.CommitButtonText = "Load SGF";
-                var file = await fileLoadPicker.PickSingleFileAsync();
-
-                if (file != null)
-                {
-                    MessageText = "Loading...";
-                    IsBusy = true;
-
-                    var sgf = await FileIO.ReadTextAsync(file);
-                    var resp = await DataRepository.LoadSGF(ActiveGame, sgf);
-                    IsBusy = false;
-                    MessageText = null;
-
-                    if (AbortOperation)
-                        return;
-
-                    if (resp.ResultCode == GoResultCode.Success)
-                        LoadGameFromServerAsync("Loading...");
-                    else if (resp.ResultCode == GoResultCode.CommunicationError)
-                        await HandleCommunicationError("Syncronizing...");
-                    else
-                    {
-                        await DisplayErrorCode(resp.ResultCode);
-                        LoadGameFromServerAsync("Loading...");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayMessage("Whoops", "Couldn't load the SGF.\n\nError was: " + ex.Message);
-                LoadGameFromServerAsync("Syncronizing...");
-                throw;
-            }
-        }
-        #endregion LoadCommand
-      
         #region GetHintCommand
         DelegateCommand _getHintCommand;
         public DelegateCommand GetHintCommand
@@ -605,13 +499,6 @@ namespace GoG.WinRT.ViewModels
             {
                 base.OnNavigatedTo(navigationParameter, navigationMode, viewState);
 
-                this.RunOnUIThread(async () =>
-                {
-                    var msg = await DataRepository.GetActiveMessage();
-                    if (!String.IsNullOrWhiteSpace(msg))
-                        DisplayMessage("The Game of Go", msg);
-                });
-
                 // If a SinglePlayerPageViewModel is passed in, this is a new game
                 // just created by user.  If not, active game from restorable state is used.
                 if (navigationParameter is Guid)
@@ -664,7 +551,6 @@ namespace GoG.WinRT.ViewModels
             PressedCommand.RaiseCanExecuteChanged();
             ResignCommand.RaiseCanExecuteChanged();
             UndoCommand.RaiseCanExecuteChanged();
-            SaveCommand.RaiseCanExecuteChanged();
         }
 
         private void PlayCurrentUser()
@@ -885,7 +771,7 @@ namespace GoG.WinRT.ViewModels
                 }
         }
 
-        // Displays a msg, and tries to get state from the server.  Then, calls ContinueGameFromState()
+        // Tries to get state from the server.  Then, calls ContinueGameFromState()
         // to sync our state with it.  Displays appropriate messages and retries as necessary.
         private async void LoadGameFromServerAsync(string msg)
         {
@@ -1029,7 +915,7 @@ namespace GoG.WinRT.ViewModels
             RaiseCommandsChanged();
         }
 
-        private void SetState(GoGameStatus status, decimal margin)
+        private void SetState(GoGameStatus status, double margin)
         {
             Status = status;
 
@@ -1040,15 +926,15 @@ namespace GoG.WinRT.ViewModels
             {
                 case GoGameStatus.BlackWon:
                     if (humanPlayer.Color == GoColor.Black)
-                        MessageText = "You win by " + ((double)margin) + " points!";
+                        MessageText = "You win by " + margin + " points!";
                     else
-                        MessageText = aiPlayer.Name + " wins by " + ((double)margin) + " points.";
+                        MessageText = aiPlayer.Name + " wins by " + margin + " points.";
                     break;
                 case GoGameStatus.WhiteWon:
                     if (humanPlayer.Color == GoColor.White)
-                        MessageText = "You win by " + ((double)margin) + " points!";
+                        MessageText = "You win by " + margin + " points!";
                     else
-                        MessageText = aiPlayer.Name + " wins by " + ((double)margin) + " points.";
+                        MessageText = aiPlayer.Name + " wins by " + margin + " points.";
                     break;
                 case GoGameStatus.BlackWonDueToResignation:
                     if (humanPlayer.Color == GoColor.Black)

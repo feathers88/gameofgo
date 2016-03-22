@@ -131,16 +131,6 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Service References\FuegoService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\MessengerService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Services\DataRepository.cs" />
     <Compile Include="Services\IDataRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -185,13 +175,6 @@
     <None Include="Properties\DataSources\GoG.Infrastructure.Services.GoResponse.datasource" />
     <None Include="Properties\DataSources\GoG.Infrastructure.Services.GoScoreResponse.datasource" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
-    <None Include="Service References\MessengerService\Messenger.wsdl" />
-    <None Include="Service References\MessengerService\Messenger.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MessengerService\Messenger1.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Lib\Boost\stage_x86\lib\boost_chrono-vc140-mt-gd-1_60.dll">
@@ -225,33 +208,6 @@
     <Content Include="Assets\StoreLogo.scale-180.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.jpg" />
     <Content Include="Common\ReadMe.txt" />
-    <None Include="Service References\MessengerService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\MessengerService\configuration.svcinfo" />
-    <None Include="Service References\MessengerService\configuration91.svcinfo" />
-    <None Include="Service References\MessengerService\Messenger.disco" />
-    <None Include="Service References\FuegoService\Fuego.disco" />
-    <None Include="Service References\FuegoService\Fuego.wsdl" />
-    <None Include="Service References\FuegoService\Fuego4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FuegoService\Fuego41.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FuegoService\Fuego42.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FuegoService\Fuego43.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FuegoService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\FuegoService\configuration.svcinfo" />
-    <None Include="Service References\FuegoService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -280,12 +236,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\FuegoService\" />
-    <WCFMetadataStorage Include="Service References\MessengerService\" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

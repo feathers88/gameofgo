@@ -5,7 +5,7 @@
 using namespace std;
 using namespace Platform;
 
-namespace FuegoUniversalComponent
+namespace FuegoLib
 {
 	void FuegoUniversalComponent::Init()
 	{
@@ -13,7 +13,7 @@ namespace FuegoUniversalComponent
 		GoInit();
 	}
 
-	void FuegoUniversalComponent::StartGame(const int boardSize)
+	void FuegoUniversalComponent::StartGame(GoGameState^ state)
 	{		
 		if (_e != 0)
 		{
@@ -23,7 +23,7 @@ namespace FuegoUniversalComponent
 
 		try
 		{
-			_e = new ::GoGtpEngine(boardSize, 0, false, true);
+			_e = new GoGtpEngine(state->Size, 0, false, true);
 		}
 		catch (const std::exception& ex)
 		{
@@ -32,6 +32,7 @@ namespace FuegoUniversalComponent
 
 		//_e->CmdSetup(GtpCommand());	
 	}
+
 }
 
 //void FuegoLib::Fuego::StartGame(int boardSize)

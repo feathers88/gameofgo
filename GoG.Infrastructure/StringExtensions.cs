@@ -2,10 +2,22 @@
 
 namespace GoG.Infrastructure
 {
+    using System.Linq;
     using System.Text;
 
     public static class StringExtensions
     {
+        public static string DetermineCapturedStones(string before, string after)
+        {
+            string[] b = before.Split(' ');
+            string[] a = after.Split(' ');
+
+            var rval = new List<string>();
+            foreach (var s in b)
+                if (!a.Contains(s))
+                    rval.Add(s);
+            return rval.CombineStrings();
+        }
 
         /// <summary>
         /// Takes a string[], returns a single, space separated string.  Used for taking an array

@@ -114,17 +114,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoG.Infrastructure\GoG.Infrastructure.csproj">
-      <Project>{1769bdfd-8773-4bc4-8935-aa85366ca342}</Project>
-      <Name>GoG.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FuegoUniversalComponent\FuegoUniversalComponent.vcxproj">
+      <Project>{3e7497ac-b68f-4ee0-abb1-79874a897514}</Project>
+      <Name>FuegoUniversalComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoG.Infrastructure\GoG.Infrastructure.csproj">
+      <Project>{1769bdfd-8773-4bc4-8935-aa85366ca342}</Project>
+      <Name>GoG.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

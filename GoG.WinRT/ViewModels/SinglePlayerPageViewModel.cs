@@ -1,15 +1,11 @@
-﻿using System;
+﻿using FuegoLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using GoG.Infrastructure.Engine;
-using GoG.Infrastructure.Services.Engine;
-using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Unity;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using FuegoUniversalComponent = FuegoUniversalComponent.FuegoUniversalComponent;
 
 namespace GoG.WinRT.ViewModels
 {
@@ -218,13 +214,6 @@ namespace GoG.WinRT.ViewModels
             // This parent call restores the [RestorableState] properties.
             base.OnNavigatedTo(navigationParameter, navigationMode, viewState);
 
-            this.RunOnUIThread(async () =>
-            {
-                var msg = await DataRepository.GetActiveMessage();
-                if (!String.IsNullOrWhiteSpace(msg))
-                    DisplayMessage("The Game of Go", msg);
-            });
-
             // Just a quick check to see if ActiveGame still exists.  If the user was away for very long,
             // it could easily have been deleted by the server.
             if (ActiveGame != Guid.Empty)
@@ -255,8 +244,6 @@ namespace GoG.WinRT.ViewModels
         {
             try
             {
-                var fuego = new global::FuegoUniversalComponent.FuegoUniversalComponent();
-                
                 bool success = false;
                 GoGameStateResponse resp = null;
 
@@ -268,8 +255,8 @@ namespace GoG.WinRT.ViewModels
                     var tmpNewGame = Guid.NewGuid();
 
                     // Create game from user's selections.
-                    var p1 = new GoPlayer();
-                    var p2 = new GoPlayer();
+                    var p1 = new GoPlayer2();
+                    var p2 = new GoPlayer2();
                     if (Color == (int)GoColor.Black)
                     {
                         p1.Name = Name;
@@ -297,8 +284,7 @@ namespace GoG.WinRT.ViewModels
                         "",
                         null,
                         0);
-                    fuego.StartGame(tmpState.Size);
-                    //resp = await DataRepository.StartAsync(tmpNewGame, tmpState);
+                    resp = await DataRepository.StartAsync(tmpNewGame, tmpState);
                     BusyMessage = null;
                     IsBusy = false;
 

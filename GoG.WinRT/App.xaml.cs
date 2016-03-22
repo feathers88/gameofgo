@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.System;
-using GoG.WinRT.Services;
+
 using Microsoft.Practices.Unity;
 using Windows.ApplicationModel.Activation;
+using GoG.WinRT.Services;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
 

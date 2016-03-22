@@ -38,33 +38,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="EngineHelpers.cs" />
-    <Compile Include="Engine\Enums.cs" />
-    <Compile Include="Engine\GoColor.cs" />
-    <Compile Include="Engine\GoGameState.cs" />
-    <Compile Include="Engine\GoMove.cs" />
-    <Compile Include="Engine\GoMoveHistoryItem.cs" />
-    <Compile Include="Engine\GoPlayer.cs" />
-    <Compile Include="Engine\GoScore.cs" />
-    <Compile Include="Engine\GoMoveResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Engine\GoSaveSVGResponse.cs" />
-    <Compile Include="Services\Engine\GoEngineException.cs" />
-    <Compile Include="Services\Engine\GoGameStateResponse.cs" />
-    <Compile Include="Services\Engine\GoMoveResponse.cs" />
-    <Compile Include="Services\Engine\GoNameResponse.cs" />
-    <Compile Include="Services\Engine\GoResponse.cs" />
-    <Compile Include="Services\Engine\GoHintResponse.cs" />
-    <Compile Include="Services\Engine\GoScoreResponse.cs" />
-    <Compile Include="Services\Users\NewUserRequest.cs" />
-    <Compile Include="Services\Users\Enums.cs" />
-    <Compile Include="Services\Users\UsersException.cs" />
-    <Compile Include="Services\Users\UserResponse.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

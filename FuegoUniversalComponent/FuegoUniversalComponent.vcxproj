@@ -30,7 +30,7 @@
     <ProjectGuid>{3e7497ac-b68f-4ee0-abb1-79874a897514}</ProjectGuid>
     <Keyword>WindowsRuntimeComponent</Keyword>
     <ProjectName>FuegoUniversalComponent</ProjectName>
-    <RootNamespace>FuegoUniversalComponent</RootNamespace>
+    <RootNamespace>FuegoLib</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>

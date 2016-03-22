@@ -1,4 +1,5 @@
-﻿using GoG.WinRT.Services;
+﻿
+using GoG.WinRT.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
