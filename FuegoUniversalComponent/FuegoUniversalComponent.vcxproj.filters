@@ -8,7 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="FuegoUniversalComponent.cpp" />
     <ClCompile Include="fuego\go\GoAutoBook.cpp" />
     <ClCompile Include="fuego\go\GoBensonSolver.cpp" />
     <ClCompile Include="fuego\go\GoBlock.cpp" />
@@ -118,10 +117,10 @@
     <ClCompile Include="fuego\smartgame\SgUtil.cpp" />
     <ClCompile Include="fuego\smartgame\SgVectorUtil.cpp" />
     <ClCompile Include="fuego\smartgame\SgWrite.cpp" />
+    <ClCompile Include="FuegoInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="FuegoUniversalComponent.h" />
     <ClInclude Include="fuego\go\GoAssertBoardRestored.h" />
     <ClInclude Include="fuego\go\GoAutoBook.h" />
     <ClInclude Include="fuego\go\GoBensonSolver.h" />
@@ -272,5 +271,6 @@
     <ClInclude Include="fuego\smartgame\SgVector.h" />
     <ClInclude Include="fuego\smartgame\SgVectorUtil.h" />
     <ClInclude Include="fuego\smartgame\SgWrite.h" />
+    <ClInclude Include="FuegoInstance.h" />
   </ItemGroup>
 </Project>

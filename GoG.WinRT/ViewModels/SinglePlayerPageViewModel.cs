@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Practices.Unity;
 using Windows.UI.Xaml.Navigation;
+using GoG.Infrastructure.Engine;
+using GoG.Infrastructure.Services.Engine;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 
@@ -255,8 +257,8 @@ namespace GoG.WinRT.ViewModels
                     var tmpNewGame = Guid.NewGuid();
 
                     // Create game from user's selections.
-                    var p1 = new GoPlayer2();
-                    var p2 = new GoPlayer2();
+                    var p1 = new GoPlayer();
+                    var p2 = new GoPlayer();
                     if (Color == (int)GoColor.Black)
                     {
                         p1.Name = Name;

@@ -360,7 +360,7 @@
     <ClInclude Include="fuego\smartgame\SgVectorUtil.h" />
     <ClInclude Include="fuego\smartgame\SgWrite.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="FuegoUniversalComponent.h" />
+    <ClInclude Include="FuegoInstance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fuego\gouct\GoUctAdditiveKnowledge.cpp" />
@@ -480,7 +480,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="FuegoUniversalComponent.cpp" />
+    <ClCompile Include="FuegoInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs.120, Version=14.0" />

@@ -4,7 +4,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
-using FuegoLib;
+using GoG.Infrastructure.Engine;
 
 namespace GoG.WinRT
 {

@@ -39,7 +39,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="EngineHelpers.cs" />
+    <Compile Include="Engine\Enums.cs" />
+    <Compile Include="Engine\GoColor.cs" />
+    <Compile Include="Engine\GoGameState.cs" />
+    <Compile Include="Engine\GoMove.cs" />
+    <Compile Include="Engine\GoMoveHistoryItem.cs" />
+    <Compile Include="Engine\GoMoveResult.cs" />
+    <Compile Include="Engine\GoPlayer.cs" />
+    <Compile Include="Engine\GoScore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Engine\GoEngineException.cs" />
+    <Compile Include="Services\Engine\GoGameStateResponse.cs" />
+    <Compile Include="Services\Engine\GoHintResponse.cs" />
+    <Compile Include="Services\Engine\GoMoveResponse.cs" />
+    <Compile Include="Services\Engine\GoNameResponse.cs" />
+    <Compile Include="Services\Engine\GoResponse.cs" />
+    <Compile Include="Services\Engine\GoScoreResponse.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup />

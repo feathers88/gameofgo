@@ -72,7 +72,6 @@ namespace GoG.Fuego
 
         private void Setup(ILogger logger, IGoGRepository goGRepository)
         {
-
             _logger = logger;
             _goGRepository = goGRepository;
 
@@ -114,7 +113,7 @@ namespace GoG.Fuego
 
         public void Start(Guid gameId, GoGameState state)
         {
-            if (state == null) throw new ArgumentNullException("state");
+            if (state == null) throw new ArgumentNullException(nameof(state));
 
             bool exists = _goGRepository.GetGameExists(gameId);
 

@@ -2,18 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Pickers;
 using GoG.Board;
-using FuegoLib;
-
-
-using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml.Navigation;
+using GoG.Infrastructure.Engine;
+using GoG.Infrastructure.Services.Engine;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 
@@ -296,7 +292,7 @@ namespace GoG.WinRT.ViewModels
             else
             {
                 await DisplayErrorCode(resp.ResultCode);
-                LoadGameFromServerAsync("Syncronizing...");
+                LoadGameFromRepoAsync("Syncronizing...");
             }
 
             RaiseCommandsChanged();
@@ -414,7 +410,7 @@ namespace GoG.WinRT.ViewModels
             else
             {
                 await DisplayErrorCode(resp.ResultCode);
-                LoadGameFromServerAsync("Syncronizing...");
+                LoadGameFromRepoAsync("Syncronizing...");
             }
 
             RaiseCommandsChanged();
@@ -475,7 +471,7 @@ namespace GoG.WinRT.ViewModels
             else
             {
                 await DisplayErrorCode(resp.ResultCode);
-                LoadGameFromServerAsync("Undoing...");
+                LoadGameFromRepoAsync("Undoing...");
             }
 
             RaiseCommandsChanged();
@@ -513,7 +509,7 @@ namespace GoG.WinRT.ViewModels
                     GoBackDeferred();
                 }
                 else
-                    LoadGameFromServerAsync("Syncronizing...");
+                    LoadGameFromRepoAsync("Syncronizing...");
 
                 //base.OnNavigatedTo(navigationParameter, navigationMode, viewState);
 
@@ -630,7 +626,7 @@ namespace GoG.WinRT.ViewModels
         private async Task HandleCommunicationError(string msg)
         {
             await DisplayErrorCode(GoResultCode.CommunicationError);
-            LoadGameFromServerAsync(msg);
+            LoadGameFromRepoAsync(msg);
         }
 
         private void RaiseAllPiecesChanged()
@@ -773,7 +769,7 @@ namespace GoG.WinRT.ViewModels
 
         // Tries to get state from the server.  Then, calls ContinueGameFromState()
         // to sync our state with it.  Displays appropriate messages and retries as necessary.
-        private async void LoadGameFromServerAsync(string msg)
+        private async void LoadGameFromRepoAsync(string msg)
         {
             GoGameStateResponse resp = null;
 
@@ -845,7 +841,7 @@ namespace GoG.WinRT.ViewModels
                          if (!AbortOperation)
                              await Task.Delay(delay);
                          if (!AbortOperation)
-                             RunOnUIThread(() => LoadGameFromServerAsync(msg));
+                             RunOnUIThread(() => LoadGameFromRepoAsync(msg));
                      });
         }
 
@@ -915,7 +911,7 @@ namespace GoG.WinRT.ViewModels
             RaiseCommandsChanged();
         }
 
-        private void SetState(GoGameStatus status, double margin)
+        private void SetState(GoGameStatus status, decimal margin)
         {
             Status = status;
 

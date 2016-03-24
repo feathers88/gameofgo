@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 using GoG.Board.Extensions;
 using System.Text;
+using GoG.Infrastructure.Engine;
 
 namespace GoG.Board
 {

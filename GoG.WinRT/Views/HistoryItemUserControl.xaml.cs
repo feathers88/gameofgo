@@ -1,6 +1,7 @@
 ﻿using FuegoLib;
 using GoG.WinRT.Common;
 using Windows.UI.Xaml;
+using GoG.Infrastructure.Engine;
 
 namespace GoG.WinRT.Views
 {

@@ -806,7 +806,7 @@ namespace GoG.Fuego
                     _logger.LogGameInfo(this.CurrentGameId, "Read: " + (line ?? "(NULL)"));
                     Debug.WriteLine("Read: " + (line ?? "(NULL)"));
 #endif
-
+      
                     // If empty line, eats it, otherwise parses the line.
                     if (!String.IsNullOrEmpty(line))
                     {
