@@ -61,7 +61,7 @@ namespace FuegoLib
 		wstring ws(msg->Data());
 		string str(ws.begin(), ws.end());
 		*_instr << str;
-
+		
 		//_e->MainLoop(*_goin, *_goout);
 	}
 

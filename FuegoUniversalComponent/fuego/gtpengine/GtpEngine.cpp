@@ -322,13 +322,15 @@ void ReadThread::Function::operator()()
                 break;
         }
         m_readThread.m_waitCommand.wait(lock);
-		m_readThread.m_isStreamGood = true;// !in.EndOfInput();
+		m_readThread.m_isStreamGood = !in.EndOfInput();
         m_readThread.m_line = line;
         Notify(m_readThread.m_commandReceivedMutex,
                m_readThread.m_commandReceived);
-        /*if (in.EndOfInput())
-            return;*/
+        if (in.EndOfInput())
+            return;
         // See comment at GtpEngine::SetQuit
+		/*if (line.empty())
+			return;*/
         GtpCommand cmd(line);
         if (cmd.Name() == "quit")
             return;
