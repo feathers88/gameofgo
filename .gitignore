@@ -216,3 +216,5 @@ ModelManifest.xml
 .idea/
 Thumbs.db
 Desktop.ini
+*.VC.opendb
+*.VC.db

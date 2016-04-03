@@ -65,7 +65,7 @@ namespace SgUctTreeUtil
     void ExtractSubtree(const SgUctTree& tree, SgUctTree& target,
                         const std::vector<SgMove>& sequence,
                         bool warnTruncate,
-                        double maxTime = std::numeric_limits<double>::max(),
+                        double maxTime = DBL_MAX,
                         SgUctValue minCount = 0);
 
     /** Find move node with a given move.

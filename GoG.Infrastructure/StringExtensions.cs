@@ -24,15 +24,18 @@ namespace GoG.Infrastructure
         /// of stone positions e.g. { "Q1", "F13", "B9" } and changing it into the database
         /// representation which is a simple space-separated string like: "Q1 F13 B9". 
         /// </summary>
-        public static string CombineStrings(this IEnumerable<string> array)
+        public static string CombineStrings(this IEnumerable<string> strings, string separator = " ")
         {
             var rval = new StringBuilder(1500);
-            foreach (var s in array)
+            var list = strings as List<string> ?? strings.ToList();
+            for (int i = 0; i < list.Count; i++)
             {
+                var s = list[i];
                 rval.Append(s);
-                rval.Append(' ');
+                if (i < list.Count - 1)
+                    rval.Append(separator);
             }
-            return rval.ToString().TrimEnd();
+            return rval.ToString();
         }
     }
 }

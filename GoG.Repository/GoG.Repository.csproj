@@ -64,10 +64,6 @@
       <Project>{1769bdfd-8773-4bc4-8935-aa85366ca342}</Project>
       <Name>GoG.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GoG.ServerCommon\GoG.ServerCommon.csproj">
-      <Project>{864817e1-c258-40ee-a5ec-0bd691c304bb}</Project>
-      <Name>GoG.ServerCommon</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

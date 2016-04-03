@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 
 namespace GoG.Infrastructure.Engine
 {
@@ -84,7 +82,7 @@ namespace GoG.Infrastructure.Engine
         /// Position of all the black stones.
         /// </summary>
         public string BlackPositions { get; set; }
-
+        
         /// <summary>
         /// Position of all the white stones.
         /// </summary>

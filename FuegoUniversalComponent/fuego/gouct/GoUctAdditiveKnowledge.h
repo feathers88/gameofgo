@@ -83,7 +83,10 @@ inline const GoBoard& GoUctAdditiveKnowledge::Board() const
 
 inline SgUctValue GoUctAdditiveKnowledge::CappedValue(SgUctValue value) const
 {
-	return std::max(value, Minimum());
+	auto a = value;
+	auto b = Minimum();
+	return a > b ? a : b;
+	//return std::max(value, Minimum());
 }
 
 //----------------------------------------------------------------------------

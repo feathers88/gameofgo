@@ -1,9 +1,9 @@
 ﻿#pragma once
 
+//#pragma unmanaged
+
 #include <iostream>
 #include <sstream>
-
-#pragma unmanaged
 
 #include "fuego/smartgame/SgSystem.h"
 #include "fuego/smartgame/SgInit.h"
@@ -12,27 +12,46 @@
 #include "fuego/go/GoInit.h"
 #include "fuego/gouct/GoUctCommands.h"
 
-#pragma managed
+//#pragma managed
+
+#include <collection.h>
 
 namespace FuegoLib
 {
+	// This class subclasses GoGtpEngine in a way that registers the Uct commands.
+	// And instance of this class is created by the FuegoInstance class.
+	class FuegoMainEngine : public GoGtpEngine
+	{
+	public:
+		FuegoMainEngine(int fixedBoardSize, const char* programPath,
+			bool noHandicap);
+		~FuegoMainEngine();
+
+	private:
+		GoUctCommands m_uctCommands;
+
+		typedef GoUctPlayer<GoUctGlobalSearch<GoUctPlayoutPolicy<GoUctBoard>,
+			GoUctPlayoutPolicyFactory<GoUctBoard> >,
+			GoUctGlobalSearchState<GoUctPlayoutPolicy<GoUctBoard> > >
+			PlayerType;		
+	};
+
 	public ref class FuegoInstance sealed
 	{
 	private:
-		GoGtpEngine* _e;
-		GtpInputStream* _goin;
-		GtpOutputStream* _goout;
-		std::stringstream* _instr;
-		std::stringstream* _outstr;
+		FuegoMainEngine* _e;
+		static bool _inited;
+
+		void FuegoInstance::CleanupStreams();
 		
 	public:
 		FuegoInstance();
-		void StartGame(unsigned char size);
-		void Write(Platform::String^ msg);
-		//void Flush();
-		//bool EndOfInput();
-		Platform::String^ ReadLine();
-
+		void StartGame(unsigned char size, Platform::Guid guid);
+		Platform::String^ HandleCommand(Platform::String^ cmd);
+		
 		property Platform::Guid Guid;
+
+	private:
+		~FuegoInstance();
 	};
 }

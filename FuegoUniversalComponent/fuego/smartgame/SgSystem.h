@@ -80,12 +80,12 @@ public:
 /** System-specific action when an //SG_ASSERT fails */
 void SgHandleAssertion(const char* expr, const char* file, int line);
 
-#define ////SG_ASSERT(x) \
-    do \
-    { \
-        if (! (x)) \
-            ::SgHandleAssertion(#x, __FILE__, __LINE__); \
-    } while (false)
+//#define ////SG_ASSERT(x) \
+//    do \
+//    { \
+//        if (! (x)) \
+//            ::SgHandleAssertion(#x, __FILE__, __LINE__); \
+//    } while (false)
 #else
 //#define ////SG_ASSERT(x) (static_cast<void>(0))
 #endif

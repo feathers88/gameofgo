@@ -284,7 +284,7 @@ namespace GoG.WinRT.ViewModels
                         GoColor.Black,
                         "",
                         "",
-                        null,
+                        new List<GoMoveHistoryItem>(), 
                         0);
                     resp = await DataRepository.StartAsync(tmpNewGame, tmpState);
                     BusyMessage = null;

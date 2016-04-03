@@ -40,7 +40,9 @@ namespace GoG.Infrastructure.Engine
         }
 
         public string CapturedStones { get; set; }
+
         public GoGameStatus Status { get; set; }
+
         public decimal WinMargin { get; set; }
     }
 }

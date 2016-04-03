@@ -145,7 +145,7 @@ public:
 
     const GoGame& Game() const;
 
-    const GoBoard& Board() const;
+    //const GoBoard& Board() const;
 
     /** Set player.
         Takes ownership of player. */
@@ -225,6 +225,11 @@ public:
     SgMpiSynchronizerHandle MpiSynchronizer();
 
     const SgMpiSynchronizerHandle MpiSynchronizer() const;
+
+	inline const GoBoard& GoGtpEngine::Board() const
+	{
+		return m_game.Board();
+	}
 
 protected:
     /** Current player.
@@ -437,11 +442,6 @@ void GoGtpEngine::AddStatistics(const std::string& key, const T& value)
     std::ostringstream s;
     s << value;
     AddStatistics(key, s.str());
-}
-
-inline const GoBoard& GoGtpEngine::Board() const
-{
-    return m_game.Board();
 }
 
 inline GoBook& GoGtpEngine::Book()

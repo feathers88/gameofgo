@@ -7,9 +7,7 @@ namespace GoG.Infrastructure.Engine
     /// </summary>
     public enum GoColor
     {
-        [EnumMember]
         Black,
-        [EnumMember]
         White
     }
 }

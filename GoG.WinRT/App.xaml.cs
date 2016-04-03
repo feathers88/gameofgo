@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.System;
-
 using Microsoft.Practices.Unity;
 using Windows.ApplicationModel.Activation;
 using GoG.WinRT.Services;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
-
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
 namespace GoG.WinRT
 {
@@ -51,7 +47,7 @@ namespace GoG.WinRT
             _container.RegisterInstance<ISessionStateService>(SessionStateService);
             _container.RegisterInstance<INavigationService>(NavigationService);
             // Register any app specific types with the container
-            _container.RegisterType<IDataRepository, DataRepository>();
+            _container.RegisterType(typeof(IDataRepository), typeof(DataRepository), new ContainerControlledLifetimeManager());
 
             // Set a factory for the ViewModelLocator to use the container to construct view models so their 
             // dependencies get injected by the container

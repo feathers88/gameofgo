@@ -6,7 +6,6 @@ namespace GoG.Infrastructure.Services.Engine
     /// <summary>
     /// A list of positions response.
     /// </summary>
-    [DataContract]
     public class GoHintResponse : GoResponse
     {
         // This empty constructor is so WCF's DataContractSerializer is able to build an instance of this type.
@@ -20,7 +19,6 @@ namespace GoG.Infrastructure.Services.Engine
             Move = move;
         }
         
-        [DataMember]
         public GoMove Move { get; set; }
     }
 }

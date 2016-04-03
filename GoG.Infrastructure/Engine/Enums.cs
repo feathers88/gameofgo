@@ -5,12 +5,19 @@ namespace GoG.Infrastructure.Engine
     public enum GoOperation
     {
         Idle,
+
         Starting,
+
         NormalMove,
+
         Pass,
+
         Resign,
+
         GenMove,
+
         Hint,
+
         Undo
     }
 
@@ -20,8 +27,10 @@ namespace GoG.Infrastructure.Engine
     /// </summary>
     public enum MoveType
     {
-        Normal = 0, 
-        Pass = 1, 
+        Normal = 0,
+
+        Pass = 1,
+
         Resign = 2
     }
 
@@ -36,8 +45,10 @@ namespace GoG.Infrastructure.Engine
 
     public enum PlayerType
     {
-        Human = 0, 
-        AI = 1, 
+        Human = 0,
+
+        AI = 1,
+
         Remote = 2
     }
 
@@ -49,64 +60,52 @@ namespace GoG.Infrastructure.Engine
         /// <summary>
         /// No error.
         /// </summary>
-        [EnumMember]
         Success,
 
         /// <summary>
         /// Client side also generates these when there are connectivity errors, but 
         /// could be generated server side, too.
         /// </summary>
-        [EnumMember]
         CommunicationError,
 
         /// <summary>
         /// An error happened on the server that the client shouldn't know about.
         /// </summary>
-        [EnumMember]
         ServerInternalError,
 
         /// <summary>
         /// The GameId passed in doesn't exist (or doesn't belong to the current user).
         /// </summary>
-        [EnumMember]
         GameDoesNotExist,
 
         /// <summary>
         /// The GameId passed in belongs to a game that already exists.
         /// </summary>
-        [EnumMember]
         GameAlreadyExists,
 
         /// <summary>
         /// Game state between server and client does not match.  This usually means the client needs to correct the situation
         /// (or the client is trying to cheat).
         /// </summary>
-        [EnumMember]
         ClientOutOfSync,
 
         /// <summary>
         /// Only one move or action can be performed for a single game at one time.  If multiple calls are made per game,
         /// they are rejected.
         /// </summary>
-        [EnumMember]
         SimultaneousRequests,
 
-        [EnumMember]
         IllegalMoveSpaceOccupied,
 
-        [EnumMember]
         IllegalMoveSuicide,
 
-        [EnumMember]
         IllegalMoveSuperKo,
 
-        [EnumMember]
         OtherIllegalMove,
 
         /// <summary>
         /// Other error output by the engine.
         /// </summary>
-        [EnumMember]
         OtherEngineError,
 
         /// <summary>
@@ -115,7 +114,6 @@ namespace GoG.Infrastructure.Engine
         /// move requests.  Clients should simply show a busy signal for 5 seconds, then
         /// try again.
         /// </summary>
-        [EnumMember]
         EngineBusy,
 
         /// <summary>
@@ -123,10 +121,8 @@ namespace GoG.Infrastructure.Engine
         /// to a very low number of "maximum simulated games" (used to limit its strength), but that's a guess.
         /// It's not clear how client client should handle this, so let's hope it doesn't happen too often.
         /// </summary>
-        [EnumMember]
         CannotScore,
 
-        [EnumMember]
         CannotSaveSGF
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace GoG.Infrastructure.Engine
+﻿using System.Runtime.Serialization;
+
+namespace GoG.Infrastructure.Engine
 {
     /// <summary>
     /// Represents a move.

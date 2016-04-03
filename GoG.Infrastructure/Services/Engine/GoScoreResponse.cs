@@ -6,7 +6,6 @@ namespace GoG.Infrastructure.Services.Engine
     /// <summary>
     /// Sent to client in response to a score request.
     /// </summary>
-    [DataContract]
     public class GoScoreResponse : GoResponse
     {
         // This empty constructor is so WCF's DataContractSerializer is able to build an instance of this type.
@@ -21,9 +20,7 @@ namespace GoG.Infrastructure.Services.Engine
             Score = score;
         }
 
-        [DataMember]
         public GoColor Winner { get; set; }
-        [DataMember]
         public float Score { get; set; }
     }
 }
