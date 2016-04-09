@@ -13,7 +13,7 @@ namespace GoG.WinRT.Views
             this.InitializeComponent();
 
             // Set the min size to 250 * 400
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 320, Height = 400 });
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 330, Height = 400 });
 
             this.SizeChanged += OnSizeChanged;
         }

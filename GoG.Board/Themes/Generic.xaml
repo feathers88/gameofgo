@@ -298,7 +298,7 @@
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
 
-                                        <ColorAnimation Duration="0:0:1" To="Black" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="LastMoveIndicator" />
+                                        <ColorAnimation Duration="0:0:0" To="Black" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="LastMoveIndicator" />
                                     </Storyboard>
 
                                 </VisualState>
@@ -375,7 +375,7 @@
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
 
-                                        <ColorAnimation Duration="0:0:1" To="White" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="LastMoveIndicator" />
+                                        <ColorAnimation Duration="0:0:0" To="White" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="LastMoveIndicator" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>

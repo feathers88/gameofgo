@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Windows.System;
 using Microsoft.Practices.Unity;
 using GoG.Infrastructure.Engine;
@@ -179,6 +178,17 @@ namespace GoG.WinRT.ViewModels
 
         #region Commands
 
+        #region LaunchUrlCommand
+        DelegateCommand<string> _launchUrlCommand;
+        public DelegateCommand<string> LaunchUrlCommand => _launchUrlCommand ?? (_launchUrlCommand = new DelegateCommand<string>(ExecuteLaunchUrl, CanLaunchUrl));
+        public bool CanLaunchUrl(string url) => true;
+        public void ExecuteLaunchUrl(string url)
+        {
+            // Launch the URI
+            Launcher.LaunchUriAsync(new Uri(url));
+        }
+        #endregion LaunchUrlCommand
+        
         #region PlayCommand
         DelegateCommand _playCommand;
         public DelegateCommand PlayCommand => _playCommand ?? (_playCommand = new DelegateCommand(ExecutePlay, CanPlay));
@@ -291,27 +301,7 @@ namespace GoG.WinRT.ViewModels
                 IsBusy = false;
             }
         }
-
-        //protected IList<SettingsCharmActionItem> GetSettingsCharmActionItems()
-        //{
-        //    var settingsCharmItems = new List<SettingsCharmActionItem>
-        //    {
-        //        new SettingsCharmActionItem("How to Play", () => LoadWebPage("http://www.britgo.org/intro/intro.html")),
-        //        new SettingsCharmActionItem("Suggestions and Bugs", () => LoadWebPage("mailto:gameofgo@outlook.com")),
-        //        new SettingsCharmActionItem("Project Site", () => LoadWebPage("https://gameofgo.codeplex.com/")),
-        //        new SettingsCharmActionItem("Privacy", () => LoadWebPage("https://gameofgo.codeplex.com/wikipage?title=Privacy%20Statement")),
-        //        //new SettingsCharmActionItem("More Settings", () => FlyoutService.ShowFlyout("CustomSettings"))
-        //    };
-
-        //    return settingsCharmItems;
-        //}
-
-        private async Task LoadWebPage(string url)
-        {
-            // Launch the URI
-            var success = await Launcher.LaunchUriAsync(new Uri(url));
-        }
-
+        
         #endregion Helpers
     }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using Windows.Foundation;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using GoG.WinRT.ViewModels;
 
@@ -14,6 +16,10 @@ namespace GoG.WinRT.Views
         public GamePage()
         {
             this.InitializeComponent();
+
+            // Set the min size to 250 * 400
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 330, Height = 400 });
+
             this.SizeChanged += OnSizeChanged;
             this.DataContextChanged += OnDataContextChanged;
         }

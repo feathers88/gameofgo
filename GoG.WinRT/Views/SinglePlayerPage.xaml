@@ -273,8 +273,8 @@
                         Margin="10,0,0,5"
                         HorizontalAlignment="Left"
                         Command="{Binding LaunchUrlCommand}"
-                        CommandParameter="https://gameofgo.codeplex.com/wikipage?title=Privacy%20Statement"
-                        Content="Privacy"
+                        CommandParameter="https://github.com/cbordeman/gameofgo/blob/master/Privacy%20Notice.md"
+                        Content="Privacy Statement"
                         FontSize="14" />
             </Grid>
 

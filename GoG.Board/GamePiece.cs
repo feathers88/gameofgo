@@ -17,7 +17,7 @@ namespace GoG.Board
         {
 			DefaultStyleKey = typeof(GamePiece);
 
-            Sequence = "1234";
+            Sequence = "361";
             Color = GoColor.White;
             IsHint = true;
             IsLastMove = true;
