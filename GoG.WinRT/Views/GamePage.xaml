@@ -10,7 +10,8 @@
                            xmlns:mvvm="using:Microsoft.Practices.Prism.Mvvm"
                            d:DataContext="{d:DesignInstance viewModels:GamePageViewModel}"
                            mvvm:ViewModelLocator.AutoWireViewModel="True"
-                           mc:Ignorable="d">
+                           mc:Ignorable="d"
+                           Background="Black">
 
     <Page.Resources>
         <winRt:GoColorToColorConverter x:Key="GoColorToColorConverter" />
@@ -346,18 +347,20 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>-->
     </Grid>
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <AppBar IsSticky="False" Style="{StaticResource AppBarStyle}">
             <Grid>
                 <StackPanel Orientation="Horizontal">
+                    --><!--<Button Style="{StaticResource SaveAppBarButtonStyle}" AutomationProperties.Name="Save SGF" Command="{Binding SaveCommand}" />
+                    <Button Style="{StaticResource OpenFileAppBarButtonStyle}" AutomationProperties.Name="Load SGF" Command="{Binding LoadCommand}" />--><!--
                     <Button Style="{StaticResource SaveAppBarButtonStyle}" AutomationProperties.Name="Save SGF" Command="{Binding SaveCommand}" />
                     <Button Style="{StaticResource OpenFileAppBarButtonStyle}" AutomationProperties.Name="Load SGF" Command="{Binding LoadCommand}" />
                 </StackPanel>
-                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                     <Button Style="{StaticResource RefreshAppBarButtonStyle}" />
                     <Button Style="{StaticResource SettingsAppBarButtonStyle}" />
-                </StackPanel>-->
+                </StackPanel>
             </Grid>
         </AppBar>
-    </Page.BottomAppBar>
+    </Page.BottomAppBar>-->
 </storeApps:VisualStateAwarePage>

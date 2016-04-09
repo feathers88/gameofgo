@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 using GoG.Board.Extensions;
 using System.Text;
+using System.Threading.Tasks;
+using Windows.UI.Core;
 using GoG.Infrastructure.Engine;
 
 namespace GoG.Board
@@ -101,17 +103,23 @@ namespace GoG.Board
         {
             if (_displayMessageStoryboard != null)
                 _displayMessageStoryboard.Begin();
+            else
+            {
+                // This control isn't fully loaded yet, delay on another thread
+                // until OnApplyTemplate() is executed.
+                Task.Factory.StartNew(
+                    async () =>
+                    {
+                        while(_displayMessageStoryboard == null)
+                            Task.Delay(100).Wait();
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { _displayMessageStoryboard?.Begin(); });
+                    });
+            }
         }
-
-        private void DisplayMessageStoryboardOnCompleted(object sender, object o)
-        {
-            //_displayMessageStoryboard.Stop();
-        }
-
+        
         public void HideMessageAnimation()
         {
-            if (_hideMessageStoryboard != null)
-                _hideMessageStoryboard.Begin();
+            _hideMessageStoryboard?.Begin();
         }
 
         /// <summary>

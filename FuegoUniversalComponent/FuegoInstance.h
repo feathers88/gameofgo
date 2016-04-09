@@ -44,14 +44,11 @@ namespace FuegoLib
 
 		void FuegoInstance::CleanupStreams();
 		
+		~FuegoInstance();
+
 	public:
 		FuegoInstance();
-		void StartGame(unsigned char size, Platform::Guid guid);
-		Platform::String^ HandleCommand(Platform::String^ cmd);
-		
-		property Platform::Guid Guid;
-
-	private:
-		~FuegoInstance();
+		void StartGame(unsigned char size);
+		Platform::String^ HandleCommand(Platform::String^ cmd);	
 	};
 }

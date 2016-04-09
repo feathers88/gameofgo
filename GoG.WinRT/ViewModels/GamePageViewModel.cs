@@ -7,6 +7,7 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Windows.System;
 using Windows.UI.Xaml.Navigation;
 using GoG.Infrastructure.Engine;
 using GoG.Infrastructure.Services.Engine;
@@ -140,6 +141,7 @@ namespace GoG.WinRT.ViewModels
             {
                 SetProperty(ref _whoseTurn, value);
                 CurrentTurnColor = _players[_whoseTurn].Color;
+                OnPropertyChanged(nameof(WhoseTurn));
             }
         }
         #endregion WhoseTurn
@@ -767,31 +769,42 @@ namespace GoG.WinRT.ViewModels
                 }
         }
 
-        // Tries to get state from the server.  Then, calls ContinueGameFromState()
+        // Tries to get state from repo.  Then, calls ContinueGameFromState()
         // to sync our state with it.  Displays appropriate messages and retries as necessary.
         private async void LoadGameFromRepoAsync(string msg)
         {
             GoGameStateResponse resp = null;
 
-            for (int tries = 0; !AbortOperation && tries < 3; tries++)
-            {
-                MessageText = msg;
-                IsBusy = true;
-                resp = await DataRepository.GetGameStateAsync(ActiveGame);
-                IsBusy = false;
-                MessageText = null;
+            MessageText = msg;
+            IsBusy = true;
 
-                if (resp.ResultCode == GoResultCode.Success)
-                    break;
-                // No sense retrying if the game doesn't exist.
-                if (resp.ResultCode == GoResultCode.GameDoesNotExist)
-                    break;
+            if (ActiveGame != Guid.Empty)
+            {
+                if (AbortOperation)
+                    return;
+
+                var exists = await DataRepository.GetGameExists(ActiveGame);
+                if (exists.ResultCode == GoResultCode.GameDoesNotExist)
+                {
+                    if (AbortOperation)
+                        return;
+
+                    resp = await DataRepository.StartAsync(ActiveGame, null);
+                    Debug.Assert(resp != null && resp.ResultCode == GoResultCode.Success, "resp != null && resp.ResultCode == GoResultCode.Success");
+                }
             }
 
             if (AbortOperation)
                 return;
 
-            Debug.Assert(resp != null, "resp should not be null.");
+            resp = await DataRepository.GetGameStateAsync(ActiveGame);
+            IsBusy = false;
+            MessageText = null;
+
+            Debug.Assert(resp != null, "resp != null");
+            
+            if (AbortOperation)
+                return;
 
             if (resp.ResultCode == GoResultCode.Success)
             {
@@ -801,7 +814,7 @@ namespace GoG.WinRT.ViewModels
                 switch (resp.GameState.Operation)
                 {
                     case GoOperation.GenMove:
-                        WaitAndRetryLoadGameFromServerAsync(10000, "Fuego is thinking...");
+                        WaitAndRetryLoadGameFromServerAsync(5000, "Fuego is thinking...");
                         break;
                     case GoOperation.Starting:
                         WaitAndRetryLoadGameFromServerAsync(5000, "Starting game...");
@@ -854,7 +867,7 @@ namespace GoG.WinRT.ViewModels
             _players = new[] { Player1, Player2 };
 
             WhoseTurn = state.WhoseTurn == GoColor.Black ? 0 : 1;
-            OnPropertyChanged("WhoseTurn");
+            OnPropertyChanged(nameof(WhoseTurn));
             CurrentTurnColor = _players[_whoseTurn].Color;
 
             SetState(state.Status, state.WinMargin);
@@ -947,56 +960,6 @@ namespace GoG.WinRT.ViewModels
             }
         }
 
-        private void FixSequenceValuesForColor(GoGameState state, GoColor color)
-        {
-            // Fix the sequence values.  We can get this from state.GoMoveHistory, but we must first
-            // extract the last made moves on each position.
-
-            // History contains all moves, but some of these were pieces placed then removed by later
-            // captures.  So we need to remove all but the latest moves.  To do so, we iterate in reverse 
-            // and exclude all but the last move on each postion.  For example, if the history contains 
-            // black moves ...A1 A2 A2 A3 A2 A5..., then A2 must have been captured twice, so  we remove 
-            // all but the last A2.
-            var h = state.GoMoveHistory.OrderBy(mh => mh.Sequence).Where(mh => mh.Move.Color == color).ToArray();
-            for (int sequence = 0; sequence < h.Length; sequence++)
-            {
-                var hp = h[sequence];
-
-                if (hp.Move.MoveType == MoveType.Normal)
-                {
-                    if (Pieces.ContainsKey(hp.Move.Position))
-                        Pieces[hp.Move.Position].Sequence = (sequence + 1).ToString();
-                }
-            }
-
-
-            //var fixedHistory = new Stack<string>();
-            //for (int i = state.GoMoveHistory.Count() - 1; i >= 0; i--)  // Reverse.
-            //{
-            //    var historyItem = state.GoMoveHistory[i];
-
-            //    // Only look at one color, and skip pass and resign moves.
-            //    if (historyItem.Move.MoveType == MoveType.Normal &&
-            //        historyItem.Move.Color == color)
-            //    {
-            //        if (!fixedHistory.Contains(historyItem.Move.Position))
-            //            fixedHistory.Push(historyItem.Move.Position);
-            //    }
-            //}
-
-            // At this point, our fixedHistory contains all the moves made by one color.  The
-            // first move is at the top of the stack, so we can pop items off and assign
-            // correct Sequence values to each item in Pieces.
-            //int sequence = 1;
-            //while (fixedHistory.Count > 0)
-            //{
-            //    var histPosition = fixedHistory.Pop();
-            //    Debug.Assert(Pieces.ContainsKey(histPosition));
-            //    Pieces[histPosition].Sequence = sequence.ToString();
-            //    sequence++;
-            //}
-        }
-
         private void SetPieces(string p, GoColor goColor)
         {
             var split = p.Split(' ');
@@ -1014,6 +977,8 @@ namespace GoG.WinRT.ViewModels
                 }
             }
         }
+
+        
 
         #endregion Private
     }

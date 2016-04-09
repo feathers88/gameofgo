@@ -1,9 +1,9 @@
-﻿using FuegoLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using Windows.System;
 using Microsoft.Practices.Unity;
-using Windows.UI.Xaml.Navigation;
 using GoG.Infrastructure.Engine;
 using GoG.Infrastructure.Services.Engine;
 using Microsoft.Practices.Prism.Commands;
@@ -205,39 +205,11 @@ namespace GoG.WinRT.ViewModels
             NavService.Navigate("Game", ActiveGame);
         }
         #endregion ResumeCommand
-      
 
         #endregion Commands
 
         #region Virtuals
         
-        public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewState)
-        {
-            // This parent call restores the [RestorableState] properties.
-            base.OnNavigatedTo(navigationParameter, navigationMode, viewState);
-
-            // Just a quick check to see if ActiveGame still exists.  If the user was away for very long,
-            // it could easily have been deleted by the server.
-            if (ActiveGame != Guid.Empty)
-                CheckActiveGameExists();
-        }
-
-        /// <summary>
-        /// Checks the active game exists on the server.  If not, the active game is erased.  If
-        /// there is any kind of error, we ignore it and assume the game exists (we'll be more
-        /// thorough when we load the game viewmodel).
-        /// </summary>
-        private async void CheckActiveGameExists()
-        {
-            BusyMessage = "Syncronizing...";
-            IsBusy = true;
-            var resp = await DataRepository.GetGameExists(ActiveGame);
-            IsBusy = false;
-
-            if (resp.ResultCode == GoResultCode.GameDoesNotExist)
-                ActiveGame = Guid.Empty;
-        }
-
         #endregion Virtuals
 
         #region Helpers
@@ -278,7 +250,9 @@ namespace GoG.WinRT.ViewModels
                         p1.Level = DifficultyLevel;
 
                     }
-                    var tmpState = new GoGameState((byte)BoardEdgeSize,
+                    var tmpState = new GoGameState(
+                        tmpNewGame,
+                        (byte)BoardEdgeSize,
                         p1, p2,
                         GoGameStatus.Active,
                         GoColor.Black,
@@ -316,6 +290,26 @@ namespace GoG.WinRT.ViewModels
                 BusyMessage = null;
                 IsBusy = false;
             }
+        }
+
+        //protected IList<SettingsCharmActionItem> GetSettingsCharmActionItems()
+        //{
+        //    var settingsCharmItems = new List<SettingsCharmActionItem>
+        //    {
+        //        new SettingsCharmActionItem("How to Play", () => LoadWebPage("http://www.britgo.org/intro/intro.html")),
+        //        new SettingsCharmActionItem("Suggestions and Bugs", () => LoadWebPage("mailto:gameofgo@outlook.com")),
+        //        new SettingsCharmActionItem("Project Site", () => LoadWebPage("https://gameofgo.codeplex.com/")),
+        //        new SettingsCharmActionItem("Privacy", () => LoadWebPage("https://gameofgo.codeplex.com/wikipage?title=Privacy%20Statement")),
+        //        //new SettingsCharmActionItem("More Settings", () => FlyoutService.ShowFlyout("CustomSettings"))
+        //    };
+
+        //    return settingsCharmItems;
+        //}
+
+        private async Task LoadWebPage(string url)
+        {
+            // Launch the URI
+            var success = await Launcher.LaunchUriAsync(new Uri(url));
         }
 
         #endregion Helpers

@@ -2,8 +2,6 @@
 using System.ComponentModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 using GoG.WinRT.ViewModels;
 
 namespace GoG.WinRT.Views
@@ -33,17 +31,27 @@ namespace GoG.WinRT.Views
             
             // Subscribe to new viewmodel's events.
             if (_viewModel != null)
+            {
                 _viewModel.PropertyChanged += ViewModelOnPropertyChanged;
+
+                AdjustToVm(nameof(GamePageViewModel.WhoseTurn));
+                AdjustToVm(nameof(GamePageViewModel.MessageText));
+            }
         }
 
         private void ViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
+            AdjustToVm(propertyChangedEventArgs.PropertyName);
+        }
+
+        private void AdjustToVm(string propertyName)
+        {
             if (_viewModel == null)
                 return;
 
-            switch (propertyChangedEventArgs.PropertyName)
+            switch (propertyName)
             {
-                case "MessageText":
+                case nameof(GamePageViewModel.MessageText):
                     if (!String.IsNullOrEmpty(_viewModel.MessageText))
                     {
                         BigBoard.DisplayMessageAnimation();
@@ -55,7 +63,7 @@ namespace GoG.WinRT.Views
                         SmallBoard.HideMessageAnimation();
                     }
                     break;
-                case "WhoseTurn":
+                case nameof(GamePageViewModel.WhoseTurn):
                     if (_viewModel.WhoseTurn == 0)
                     {
                         BouncePlayer1Storyboard.Begin();

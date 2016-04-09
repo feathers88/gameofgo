@@ -1,21 +1,20 @@
-﻿using System;
-using Windows.UI.Core;
+﻿using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using GoG.WinRT.ViewModels;
 using Windows.UI.Xaml.Controls;
 
-// The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
-
 namespace GoG.WinRT.Views
 {
-    /// <summary>
-    /// A basic page that provides characteristics common to most applications.
-    /// </summary>
     public sealed partial class SinglePlayerPage 
     {
         public SinglePlayerPage()
         {
             this.InitializeComponent();
+
+            // Set the min size to 250 * 400
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 320, Height = 400 });
+
             this.SizeChanged += OnSizeChanged;
         }
 

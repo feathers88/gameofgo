@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.System;
 using Microsoft.Practices.Unity;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using GoG.Infrastructure.Engine;
 using GoG.WinRT.Services;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
+using Microsoft.Practices.Prism.StoreApps;
 
 namespace GoG.WinRT
 {
@@ -14,14 +18,35 @@ namespace GoG.WinRT
     /// </summary>
     sealed partial class App : MvvmAppBase
     {
-        // New up the singleton container that will be used for type resolution in the app
-        readonly IUnityContainer _container = new UnityContainer();
+        private bool _isRestoringFromTermination;
 
         public App()
         {
             this.InitializeComponent();
+            this.RequestedTheme = ApplicationTheme.Dark;
         }
 
+        // New up the singleton container that will be used for type resolution in the app
+        readonly IUnityContainer _container = new UnityContainer();
+        
+        protected override void OnRegisterKnownTypesForSerialization()
+        {
+            base.OnRegisterKnownTypesForSerialization();
+
+            SessionStateService.RegisterKnownType(typeof(GoGameState));
+            SessionStateService.RegisterKnownType(typeof(GoPlayer));
+            SessionStateService.RegisterKnownType(typeof(PlayerType));
+            SessionStateService.RegisterKnownType(typeof(GoGameStatus));
+            SessionStateService.RegisterKnownType(typeof(GoColor));
+            SessionStateService.RegisterKnownType(typeof(MoveType));
+            SessionStateService.RegisterKnownType(typeof(GoOperation));
+            SessionStateService.RegisterKnownType(typeof(MoveType));
+            SessionStateService.RegisterKnownType(typeof(GoResultCode));
+            SessionStateService.RegisterKnownType(typeof(GoMoveHistoryItem));
+            SessionStateService.RegisterKnownType(typeof(GoMove));
+            SessionStateService.RegisterKnownType(typeof(GoMoveResult));
+        }
+        
         /// <summary>
         /// Required override. Generally you do your initial navigation to launch page, or 
         /// to the page approriate based on a search, sharing, or secondary tile launch of the app
@@ -34,8 +59,11 @@ namespace GoG.WinRT
             // for that page in a .Views child namespace in the project. IF you want another convention
             // for mapping view names to view types, you can override 
             // the MvvmAppBase.GetPageNameToTypeResolver method
-            NavigationService.Navigate("SinglePlayer", null);
+            if (args.PreviousExecutionState != ApplicationExecutionState.Terminated)
+                NavigationService.Navigate("SinglePlayer", null);
         }
+
+        
 
         /// <summary>
         /// This is the place you initialize your services and set default factory or default resolver for the view model locator
@@ -54,37 +82,10 @@ namespace GoG.WinRT
             ViewModelLocationProvider.SetDefaultViewModelFactory((viewModelType) => _container.Resolve(viewModelType));
 
         }
-
-        protected override void OnRegisterKnownTypesForSerialization()
-        {
-            base.OnRegisterKnownTypesForSerialization();
-
-            //SessionStateService.RegisterKnownType(typeof(Address));
-        }
-
+        
         protected override object Resolve(Type type)
         {
             return _container.Resolve(type);
         }
-
-        //protected override IList<SettingsCharmActionItem> GetSettingsCharmActionItems()
-        //{
-        //    var settingsCharmItems = new List<SettingsCharmActionItem>
-        //    {
-        //        new SettingsCharmActionItem("How to Play", () => LoadWebPage("http://www.britgo.org/intro/intro.html")),
-        //        new SettingsCharmActionItem("Suggestions and Bugs", () => LoadWebPage("mailto:gameofgo@outlook.com")),
-        //        new SettingsCharmActionItem("Project Site", () => LoadWebPage("https://gameofgo.codeplex.com/")),
-        //        new SettingsCharmActionItem("Privacy", () => LoadWebPage("https://gameofgo.codeplex.com/wikipage?title=Privacy%20Statement")),
-        //        //new SettingsCharmActionItem("More Settings", () => FlyoutService.ShowFlyout("CustomSettings"))
-        //    };
-
-        //    return settingsCharmItems;
-        //}
-
-        private void LoadWebPage(string url)
-        {
-            Launcher.LaunchUriAsync(new Uri(url));
-        }
-
     }
 }

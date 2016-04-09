@@ -55,7 +55,7 @@ namespace FuegoLib
 		}
 	}
 
-	void FuegoInstance::StartGame(unsigned char size, Platform::Guid guid)
+	void FuegoInstance::StartGame(unsigned char size)
 	{
 		try
 		{
@@ -66,8 +66,6 @@ namespace FuegoLib
 			}
 			_e = new FuegoMainEngine(size, 0, false);
 	
-			Guid = guid;
-
 			//_e->DumpState(*_outstr);
 		}
 		catch (const std::exception& ex)
