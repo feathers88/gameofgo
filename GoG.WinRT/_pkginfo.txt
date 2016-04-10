@@ -1,1 +1,1 @@
-C:\src\gameofgo\GoG.WinRT\AppPackages\GoG.WinRT_1.3.6.0\GoG.WinRT_1.3.6.0_x64.appxbundle
+C:\src\gameofgo\GoG.WinRT\AppPackages\GoG.WinRT_1.3.9.0\GoG.WinRT_1.3.9.0_x64.appxbundle

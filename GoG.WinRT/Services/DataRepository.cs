@@ -427,7 +427,7 @@ namespace GoG.WinRT.Services
                             ParseResponse(WriteCommand("gg-undo", undo.ToString(CultureInfo.InvariantCulture)));
                         }
 
-                        UndoMovesInState(undo);
+                         UndoMovesInState(undo);
 
                         _state.Operation = GoOperation.Idle;
                         SaveState();
