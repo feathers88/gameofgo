@@ -46,7 +46,17 @@ namespace GoG.WinRT
             SessionStateService.RegisterKnownType(typeof(GoMove));
             SessionStateService.RegisterKnownType(typeof(GoMoveResult));
         }
-        
+
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            if (args.PrelaunchActivated)
+            {
+                return;
+            }
+
+            base.OnLaunched(args);
+        }
+
         /// <summary>
         /// Required override. Generally you do your initial navigation to launch page, or 
         /// to the page approriate based on a search, sharing, or secondary tile launch of the app
