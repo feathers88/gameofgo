@@ -606,6 +606,10 @@ namespace GoG.WinRT.Services
 
         private void SaveState()
         {
+            // Note: this is temporary until can figure out why (de)serialization
+            // fails with .Net Native compilation.
+            return;
+
             try
             {
                 _sessionStateService.SessionState[GameStateKey] = _state;
@@ -625,6 +629,10 @@ namespace GoG.WinRT.Services
 
         private void LoadState()
         {
+            // Note: this is temporary until can figure out why (de)serialization
+            // fails with .Net Native compilation.
+            return;
+
             try
             {
                 if (_sessionStateService.SessionState.ContainsKey(GameStateKey))

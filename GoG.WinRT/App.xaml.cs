@@ -104,7 +104,6 @@ namespace GoG.WinRT
 
             // These types are used in the game state.
             SessionStateService.RegisterKnownType(typeof(GoGameState));
-            SessionStateService.RegisterKnownType(typeof(Guid));
             SessionStateService.RegisterKnownType(typeof(GoPlayer));
             SessionStateService.RegisterKnownType(typeof(PlayerType));
             SessionStateService.RegisterKnownType(typeof(GoGameStatus));

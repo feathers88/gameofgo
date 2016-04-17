@@ -8,6 +8,7 @@ namespace GoG.Infrastructure.Engine
     /// This represents the result of a move.  This information is to be passed back to the client
     /// so the client can update the UI.
     /// </summary>
+    [DataContract]
     public class GoMoveResult
     {
         public GoMoveResult() { }
@@ -39,10 +40,13 @@ namespace GoG.Infrastructure.Engine
             return rval.CombineStrings();
         }
 
+        [DataMember]
         public string CapturedStones { get; set; }
 
+        [DataMember]
         public GoGameStatus Status { get; set; }
 
+        [DataMember]
         public decimal WinMargin { get; set; }
     }
 }
