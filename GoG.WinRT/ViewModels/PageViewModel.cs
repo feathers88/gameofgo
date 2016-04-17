@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Threading.Tasks;
 using GoG.WinRT.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
@@ -106,13 +108,11 @@ namespace GoG.WinRT.ViewModels
         /// <summary>
         /// Goes back, but on the UI thread and after any current navigation action has completed.
         /// </summary>
-        protected void GoBackDeferred()
+        protected async Task GoBackDeferred()
         {
             // Note: Calling NavService.GoBack() in context of an existing navigation action causes
             // an exception.  Hence the need for this helper method.
-            RunOnUIThread(
-                () => 
-                    NavService.GoBack());
+            RunOnUIThread(() => NavService.GoBack());
         }
         #endregion Helpers
     }

@@ -1,6 +1,9 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "HockeySDK.UWP": "3.2.1-build53339",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "Prism.StoreApps": "2.0.0",
+    "System.Runtime.Serialization.Json": "4.0.1",
     "Unity": "4.0.1"
   },
   "frameworks": {

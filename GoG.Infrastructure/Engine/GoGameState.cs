@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GoG.Infrastructure.Engine
 {
     /// <summary>
     /// Game state contains information about the game and previous moves.
     /// </summary>
+    [DataContract]
     public class GoGameState
     {
         public GoGameState()
@@ -13,10 +15,10 @@ namespace GoG.Infrastructure.Engine
         }
 
         public GoGameState(Guid gameId, byte size,
-                           GoPlayer player1, GoPlayer player2,
-                           GoGameStatus status,       
-                           GoColor whoseTurn, string blackPositions, string whitePositions,
-                           List<GoMoveHistoryItem> goMoveHistory, decimal winMargin)
+            GoPlayer player1, GoPlayer player2,
+            GoGameStatus status,
+            GoColor whoseTurn, string blackPositions, string whitePositions,
+            List<GoMoveHistoryItem> goMoveHistory, decimal winMargin)
         {
             GameId = gameId;
             Size = size;
@@ -53,22 +55,28 @@ namespace GoG.Infrastructure.Engine
         //        return true;
         //    if (a == null || b == null)
         //        return false;
-            
+
         //    // Everything in a should be b, and vice versa.
         //    return a.All(b.Contains) && b.All(a.Contains);
         //}
 
+        [DataMember]
         public GoGameStatus Status { get; set; }
+        [DataMember]
         public decimal WinMargin { get; set; }
+        [DataMember]
         public GoPlayer Player1 { get; set; }
+        [DataMember]
         public GoPlayer Player2 { get; set; }
+        [DataMember]
         public GoOperation Operation { get; set; }
-
+        [DataMember]
         public Guid GameId { get; set; }
 
         /// <summary>
         /// Board edge size, usually 9x9, 13x13, or 19x19.
         /// </summary>
+        [DataMember]
         public byte Size { get; set; }
 
         ///// <summary>
@@ -79,18 +87,22 @@ namespace GoG.Infrastructure.Engine
         /// <summary>
         /// Whose turn is it?  Black or White?
         /// </summary>
+        [DataMember]
         public GoColor WhoseTurn { get; set; }
 
         /// <summary>
         /// Position of all the black stones.
         /// </summary>
+        [DataMember]
         public string BlackPositions { get; set; }
-        
+
         /// <summary>
         /// Position of all the white stones.
         /// </summary>
+        [DataMember]
         public string WhitePositions { get; set; }
 
+        [DataMember]
         public List<GoMoveHistoryItem> GoMoveHistory { get; set; }
     }
 }

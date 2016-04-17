@@ -827,10 +827,13 @@ namespace GoG.WinRT.ViewModels
                         break;
                     case GoOperation.Idle:
                         RunOnUIThread(() =>
-                                      {
-                                          if (!AbortOperation && Status == GoGameStatus.Active)
-                                              RunOnUIThread(PlayCurrentUser);
-                                      });
+                        {
+                            if (!AbortOperation && Status == GoGameStatus.Active)
+                                //RunOnUIThread(PlayCurrentUser);
+                                PlayCurrentUser();
+                            else
+                                Debug.Assert(false, "This shouldn't happen.");
+                        });
                         break;
                 }
             }
@@ -843,16 +846,16 @@ namespace GoG.WinRT.ViewModels
 
         // This method is used by LoadGameFromServerAsync() to call itself recursively
         // (on another thread) after a given delay.
-        private void WaitAndRetryLoadGameFromServerAsync(int delay, string msg)
+        private async Task WaitAndRetryLoadGameFromServerAsync(int delay, string msg)
         {
             IsBusy = true;
             MessageText = msg;
 
             // Wait a few seconds, then recursively check state again.
-            Task.Run(async () =>
+            await Task.Run(() =>
                      {
                          if (!AbortOperation)
-                             await Task.Delay(delay);
+                             Task.Delay(delay).Wait();
                          if (!AbortOperation)
                              RunOnUIThread(() => LoadGameFromRepoAsync(msg));
                      });

@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Windows.ApplicationModel.Activation;
@@ -7,9 +8,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using GoG.Infrastructure.Engine;
 using GoG.WinRT.Services;
+using Microsoft.HockeyApp;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
-using Microsoft.Practices.Prism.StoreApps;
 
 namespace GoG.WinRT
 {
@@ -18,12 +19,80 @@ namespace GoG.WinRT
     /// </summary>
     sealed partial class App : MvvmAppBase
     {
-        private bool _isRestoringFromTermination;
-
         public App()
         {
+            HockeyClient.Current.Configure("98be9ebbbbd7439cbb22b51a29fd6e51",
+                new TelemetryConfiguration()
+                {
+                    DescriptionLoader = ex =>
+                    {
+                        var msg = new StringBuilder();
+
+                        ex = ex.GetBaseException();
+
+                        msg.AppendLine("Base Exception Type: " + ex.GetType().FullName);
+                        
+                        if (_container != null)
+                        {
+                            var nav = this.NavigationService;
+                            if (nav != null)
+                                msg.AppendLine("INavigationService.CanGoBack() == " + nav.CanGoBack());
+
+                        }
+                        
+                        if (Window.Current == null)
+                            msg.AppendLine("Window.Current is NULL.");
+                        else
+                        {
+                            if (Window.Current.Content == null)
+                                msg.AppendLine("Window.Current.Content is NULL.");
+                            else
+                            {
+                                var rf = Window.Current.Content as Frame;
+                                if (rf == null)
+                                    msg.AppendLine("Root frame is NULL.");
+                                else
+                                {
+                                    msg.AppendLine("rootFrame.CurrentSourcePageType is " + rf.CurrentSourcePageType.Name);
+                                    if (rf.BackStack != null)
+                                        foreach (var p in rf.BackStack)
+                                            msg.AppendLine("Back page: " + p.SourcePageType.Name);
+                                    if (rf.ForwardStack != null)
+                                        foreach (var p in rf.ForwardStack)
+                                            msg.AppendLine("Forward page: " + p.SourcePageType.Name);
+                                }
+                            }
+                        }
+
+                        if (ex.Source != null)
+                            msg.AppendLine("Source: " + ex.Source);
+
+                        if (ex.Data != null && ex.Data.Keys.Count > 0)
+                            foreach (var d in ex.Data.Keys)
+                                msg.AppendLine(d.ToString());
+
+                        if (ex.InnerException != null)
+                            msg.AppendLine(
+                                $"INNER Exception HResult: {ex.HResult}\nINNER EXCEPTION DETAILS:\n{ex.InnerException}");
+
+                        msg.AppendLine($"Message: {ex.Message}\nException HResult: {ex.HResult}");
+
+                        return msg.ToString();
+                    }
+                });
+
             this.InitializeComponent();
+
+            this.UnhandledException += OnUnhandledException;
+
             this.RequestedTheme = ApplicationTheme.Dark;
+        }
+
+        private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            //e.Handled = true;
+            
+            //var msg = $"Unhandled exception:\nType: {e.GetType().Name}\nMessage: {e.Message}";
         }
 
         // New up the singleton container that will be used for type resolution in the app
@@ -33,7 +102,9 @@ namespace GoG.WinRT
         {
             base.OnRegisterKnownTypesForSerialization();
 
+            // These types are used in the game state.
             SessionStateService.RegisterKnownType(typeof(GoGameState));
+            SessionStateService.RegisterKnownType(typeof(Guid));
             SessionStateService.RegisterKnownType(typeof(GoPlayer));
             SessionStateService.RegisterKnownType(typeof(PlayerType));
             SessionStateService.RegisterKnownType(typeof(GoGameStatus));
@@ -47,7 +118,7 @@ namespace GoG.WinRT
             SessionStateService.RegisterKnownType(typeof(GoMoveResult));
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (args.PrelaunchActivated)
             {
@@ -55,6 +126,8 @@ namespace GoG.WinRT
             }
 
             base.OnLaunched(args);
+
+            //HockeyClient.Current.Configure();TrackEvent("Event1");
         }
 
         /// <summary>

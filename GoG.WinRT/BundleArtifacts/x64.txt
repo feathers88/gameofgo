@@ -1,4 +1,4 @@
-MainPackage=C:\src\gameofgo\GoG.WinRT\bin\x64\Release\GoG.WinRT_1.3.9.0_x64.appx
-SymbolPackage=C:\src\gameofgo\GoG.WinRT\AppPackages\GoG.WinRT_1.3.9.0_Test\GoG.WinRT_1.3.9.0_x64.appxsym
-ResourcePack=C:\src\gameofgo\GoG.WinRT\bin\x64\Release\GoG.WinRT_1.3.9.0_scale-140.appx
-ResourcePack=C:\src\gameofgo\GoG.WinRT\bin\x64\Release\GoG.WinRT_1.3.9.0_scale-180.appx
+MainPackage=C:\src\gameofgo\GoG.WinRT\bin\x64\Release\GoG.WinRT_1.3.23.0_x64.appx
+SymbolPackage=C:\src\gameofgo\GoG.WinRT\AppPackages\GoG.WinRT_1.3.23.0_Test\GoG.WinRT_1.3.23.0_x64.appxsym
+ResourcePack=C:\src\gameofgo\GoG.WinRT\bin\x64\Release\GoG.WinRT_1.3.23.0_scale-140.appx
+ResourcePack=C:\src\gameofgo\GoG.WinRT\bin\x64\Release\GoG.WinRT_1.3.23.0_scale-180.appx

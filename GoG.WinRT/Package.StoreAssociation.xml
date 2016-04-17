@@ -413,11 +413,5 @@
     <MainPackageIdentityName>53013ChrisBordeman.15882F4D10A0</MainPackageIdentityName>
     <MainPackageIdentityName>53013ChrisBordeman.VideoMan</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9WZDNCRDFKLR">
-    <PackageInfo>
-      <OsMinVersion>6.2.1.0</OsMinVersion>
-      <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>1.0.0.2</PackageMaxArchitectureVersion>
-    </PackageInfo>
-  </PackageInfoList>
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9WZDNCRDFKLR" />
 </StoreAssociation>

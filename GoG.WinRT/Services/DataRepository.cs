@@ -90,80 +90,9 @@ namespace GoG.WinRT.Services
                 // setting up fuego.
                 Debug.Assert(state != null || _state != null, "state != null || _state != null");
 
-                await Task.Factory.StartNew(
-                    () =>
-                    {
-                            if (state != null)
-                                _state = state;
+                _fuego = new FuegoInstance();
 
-                            _state.Operation = GoOperation.Starting;
-                            SaveState();
-
-                            _fuego = new FuegoInstance();
-                            _fuego.StartGame(_state.Size);
-
-                            var level = _state.Player1.PlayerType == PlayerType.AI
-                                ? _state.Player1.Level
-                                : _state.Player2.Level;
-
-                            // Set up parameters and clear board.
-                            //await WriteCommand("uct_max_memory", (1024 * 1024 * 250).ToString());
-
-                            if (level < 3)
-                            {
-                                ParseResponse(WriteCommand("uct_param_player max_games",
-                                    ((level + 1)*10).ToString(CultureInfo.InvariantCulture)));
-                            }
-                            else if (level < 6)
-                            {
-                                ParseResponse(WriteCommand("uct_param_player max_games",
-                                    (level*2000).ToString(CultureInfo.InvariantCulture)));
-                            }
-                            else if (level < 9)
-                            {
-                                ParseResponse(WriteCommand("uct_param_player max_games",
-                                    (level*10000).ToString(CultureInfo.InvariantCulture)));
-                            }
-                            else //if (level < 9)
-                            {
-                                ParseResponse(WriteCommand("uct_param_player max_games",
-                                    int.MaxValue.ToString(CultureInfo.InvariantCulture)));
-                            }
-
-                            //WriteCommand("komi", state.Komi.ToString(CultureInfo.InvariantCulture));
-                            //ReadResponse();
-                            ParseResponse(WriteCommand("clear_board"));
-                            ParseResponse(WriteCommand("go_param_rules", "capture_dead 1"));
-
-                            // Set up board with some pre-existing moves.
-                        if (_state.GoMoveHistory.Count > 0)
-                        {
-                            // Must actually play every move back because otherwise undo operations
-                            // won't work.
-                            foreach (var m in _state.GoMoveHistory)
-                            {
-                                string position;
-                                switch (m.Move.MoveType)
-                                {
-                                    case MoveType.Normal:
-                                        position = m.Move.Position;
-                                        break;
-                                    case MoveType.Pass:
-                                        position = "PASS";
-                                        break;
-                                    default:
-                                        throw new ArgumentException("Unrecognized move type: " + m.Move.MoveType);
-                                }
-
-                                ParseResponse(WriteCommand("play",
-                                    (m.Move.Color == GoColor.Black ? "black" : "white") + ' ' + position));
-                            }
-                        }
-
-
-                        _state.Operation = GoOperation.Idle;
-                        SaveState();
-                    });
+                await Task.Factory.StartNew(() => StartProcess(state));
 
                 rval = new GoGameStateResponse(GoResultCode.Success, state);
             }
@@ -178,6 +107,80 @@ namespace GoG.WinRT.Services
 
             return rval;
         }
+
+        async Task StartProcess(GoGameState state)
+        {
+            if (state != null)
+                _state = state;
+
+            _state.Operation = GoOperation.Starting;
+            SaveState();
+
+            _fuego.StartGame(_state.Size);
+
+            var level = _state.Player1.PlayerType == PlayerType.AI
+                ? _state.Player1.Level
+                : _state.Player2.Level;
+
+            // Set up parameters and clear board.
+            //await WriteCommand("uct_max_memory", (1024 * 1024 * 250).ToString());
+
+            if (level < 3)
+            {
+                ParseResponse(WriteCommand("uct_param_player max_games",
+                    ((level + 1)*10).ToString(CultureInfo.InvariantCulture)));
+            }
+            else if (level < 6)
+            {
+                ParseResponse(WriteCommand("uct_param_player max_games",
+                    (level*2000).ToString(CultureInfo.InvariantCulture)));
+            }
+            else if (level < 9)
+            {
+                ParseResponse(WriteCommand("uct_param_player max_games",
+                    (level*10000).ToString(CultureInfo.InvariantCulture)));
+            }
+            else //if (level < 9)
+            {
+                ParseResponse(WriteCommand("uct_param_player max_games",
+                    int.MaxValue.ToString(CultureInfo.InvariantCulture)));
+            }
+
+            //WriteCommand("komi", state.Komi.ToString(CultureInfo.InvariantCulture));
+            //ReadResponse();
+            ParseResponse(WriteCommand("clear_board"));
+            ParseResponse(WriteCommand("go_param_rules", "capture_dead 1"));
+
+            // Set up board with some pre-existing moves.
+            if (_state.GoMoveHistory.Count > 0)
+            {
+                // Must actually play every move back because otherwise undo operations
+                // won't work.
+                foreach (var m in _state.GoMoveHistory)
+                {
+                    string position;
+                    switch (m.Move.MoveType)
+                    {
+                        case MoveType.Normal:
+                            position = m.Move.Position;
+                            break;
+                        case MoveType.Pass:
+                            position = "PASS";
+                            break;
+                        default:
+                            throw new ArgumentException("Unrecognized move type: " + m.Move.MoveType);
+                    }
+
+                    ParseResponse(WriteCommand("play",
+                        (m.Move.Color == GoColor.Black ? "black" : "white") + ' ' + position));
+                }
+            }
+
+
+            _state.Operation = GoOperation.Idle;
+            SaveState();
+        }
+
 
         public async Task<GoMoveResponse> GenMoveAsync(Guid gameid, GoColor color)
         {
@@ -616,7 +619,6 @@ namespace GoG.WinRT.Services
             catch (Exception ex)
             {
                 
-                throw;
             }
             
         }
@@ -625,8 +627,11 @@ namespace GoG.WinRT.Services
         {
             try
             {
-                _state = (GoGameState)_sessionStateService.SessionState[GameStateKey];
-                
+                if (_sessionStateService.SessionState.ContainsKey(GameStateKey))
+                {
+                    _state = (GoGameState) _sessionStateService.SessionState[GameStateKey];
+                }
+
                 //var storageFolder = ApplicationData.Current.LocalFolder;
                 //var file = await storageFolder.GetFileAsync(StateFilename);
                 //var str = await FileIO.ReadTextAsync(file);
@@ -636,7 +641,6 @@ namespace GoG.WinRT.Services
             catch (Exception ex)
             {
                 
-                throw;
             }
             
         }

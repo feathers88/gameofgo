@@ -20,9 +20,7 @@ namespace GoG.WinRT.ViewModels
 
         protected void RunOnUIThread(Action a)
         {
-            if (Dispatcher != null)
-                Dispatcher.RunAsync(CoreDispatcherPriority.Low,
-                    () => a());
+            Dispatcher?.RunAsync(CoreDispatcherPriority.Low, () => a());
         }
 
         protected static async Task DisplayMessage(string title, string msg)
