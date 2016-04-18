@@ -246,8 +246,8 @@
                         Margin="10,30,0,5"
                         HorizontalAlignment="Left"
                         Command="{Binding LaunchUrlCommand}"
-                        CommandParameter="http://www.britgo.org/intro/intro.html"
-                        Content="How To Play Go"
+                        CommandParameter="http://www.playgo.to/iwtg/en/"
+                        Content="Learn To Play Go"
                         FontSize="14" />
                 <Button Grid.Row="12"
                         Grid.Column="0"
