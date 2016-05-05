@@ -8,6 +8,7 @@
                            xmlns:storeApps="using:Microsoft.Practices.Prism.StoreApps"
                            xmlns:mvvm="using:Microsoft.Practices.Prism.Mvvm"
                            x:Name="pageRoot"
+
                            d:DataContext="{d:DesignInstance viewModels2:SinglePlayerPageViewModel}"
                            mvvm:ViewModelLocator.AutoWireViewModel="True"
                            mc:Ignorable="d"
@@ -36,7 +37,6 @@
                 <RowDefinition Height="140" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-        
 
             <!--  Back button and page title  -->
             <Grid>
@@ -44,10 +44,10 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="backButton"
+                <Button x:Name="BackButton"
                         Command="{Binding GoBackCommand}"
                         Style="{StaticResource BackButtonStyle}" />
-                <TextBlock x:Name="pageTitle"
+                <TextBlock x:Name="PageTitle"
                            Grid.Column="1"
                            Style="{StaticResource PageHeaderTextStyle}"
                            Text="The Game of Go" />

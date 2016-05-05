@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
@@ -142,7 +141,7 @@ namespace GoG.WinRT
             // for mapping view names to view types, you can override 
             // the MvvmAppBase.GetPageNameToTypeResolver method
             if (args.PreviousExecutionState != ApplicationExecutionState.Terminated)
-                NavigationService.Navigate("SinglePlayer", null);
+                NavigationService.Navigate("Main", null);
         }
 
         

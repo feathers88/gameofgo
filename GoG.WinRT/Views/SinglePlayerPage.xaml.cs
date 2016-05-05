@@ -24,15 +24,15 @@ namespace GoG.WinRT.Views
             {
                 OptionsGrid.Margin = new Thickness(10,0,0,0);
 
-                backButton.Style = Application.Current.Resources["SnappedBackButtonStyle"] as Style;
-                pageTitle.Style = Application.Current.Resources["SnappedPageHeaderTextStyle"] as Style;
+                BackButton.Style = Application.Current.Resources["SnappedBackButtonStyle"] as Style;
+                PageTitle.Style = Application.Current.Resources["SnappedPageHeaderTextStyle"] as Style;
             }
             else
             {
                 OptionsGrid.Margin = new Thickness(120, 0, 0, 0);
 
-                backButton.Style = Application.Current.Resources["BackButtonStyle"] as Style;
-                pageTitle.Style = Application.Current.Resources["PageHeaderTextStyle"] as Style;
+                BackButton.Style = Application.Current.Resources["BackButtonStyle"] as Style;
+                PageTitle.Style = Application.Current.Resources["PageHeaderTextStyle"] as Style;
             }
         }
 
